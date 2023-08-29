@@ -1,7 +1,7 @@
 <template>
     <header>
-   <div class="nav-container pb-4">
-     <nav class="navbar navbar-dark bg-dark sticky-top">
+   <div class="nav-container pb-5">
+     <nav class="navbar navbar-dark bg-dark sticky-top p-4">
  <div class="container-fluid">
    <h1 class="navbar-brand">Marcel Brown</h1>
    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
@@ -32,7 +32,6 @@
          <li class="nav-item">
            <router-link to="/cart" class="nav-link" >Cart</router-link>
          </li>
-
        </ul>
      </div>
    </div>

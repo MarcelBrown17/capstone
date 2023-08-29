@@ -2,7 +2,6 @@
  <NavBarComp/>
  <router-view/>
  <FooterComp/>
-
    <head>
      <!-- Font Awesome -->
      <link
