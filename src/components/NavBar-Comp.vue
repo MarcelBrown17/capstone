@@ -1,6 +1,6 @@
 <template>
     <header>
-   <div class="nav-container pb-5">
+   <div class="nav-container pb-3">
      <nav class="navbar navbar-dark bg-dark sticky-top p-4">
  <div class="container-fluid">
    <h1 class="navbar-brand">Marcel Brown</h1>
@@ -49,5 +49,7 @@ export default {
 </script>
 
 <style>
-
+.nav{
+  width: 100% !important;
+}
 </style>

@@ -65,8 +65,7 @@
     </template>
     
     <script>
-    
-    
+
     export default {
      
     }
@@ -94,41 +93,49 @@
     
     .flex-col {
       margin: 6px;
+
     }
     .card-body1 {
       background-color: black;
       width: 23rem;
       height: 27rem;
+      border-radius: 12px;
     }
     .card-body2 {
       background-color: black;
       width: 23rem;
       height: 10rem;
+      border-radius: 12px;
     }
     .card-body3 {
       background-color: black;
       width: 44.5rem;
       height: 20rem;
+      border-radius: 12px;
     }
     .card-body4 {
       background-color: black;
       width: 22rem;
       height: 17rem;
+      border-radius: 12px;
     }
     .card-body5 {
       background-color: black;
       width: 22rem;
       height: 17rem;
+      border-radius: 12px;
     }
     .card-body6 {
       background-color: black;
       width: 23rem;
       height: 12rem;
+      border-radius: 12px;
     }
     .card-body7 {
       background-color: black;
       width: 23rem;
       height: 25rem;
+      border-radius: 12px;
     }
     
     .card-1 {

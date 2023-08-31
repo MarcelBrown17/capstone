@@ -47,12 +47,10 @@ export default{
 html, body {
 	height: 100%;
 }
-body {
-	background: darkorange;
-}
+
 .wrapper {
-	background: darkorange;
-	height: 450px;
+	background: rgb(0, 0, 0);
+	height: 400px;
 	position: relative;
 	overflow: hidden;
 	display: flex;
