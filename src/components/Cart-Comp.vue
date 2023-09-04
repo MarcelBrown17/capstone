@@ -24,28 +24,33 @@
 <style scoped>
 .page-container{
     display:flex;
-    /* flex-direction: row; */
+    padding-top: 8rem;
+    padding-bottom: 2rem;
+    justify-content: center;
 }
 
+body {
+  background-color: black;
+}
 .greenwhich{
     padding:30px
 }
 .summary{
     display: flex;
     flex-direction: column;
-    background-color: #000000;
+    background-color: #ffecec;
     width: 300px;
     height: 400px;
 }
 .cart-container {
   display: flex;
   align-items: center;
-  background-color: #ff0000;
+  background-color: #ffffff;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
-  width: 500px;
-height:200px;
+  width: 900px;
+height:250px;
 }
 
 .product-image img {

@@ -1,10 +1,15 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+          <NavBarComp/>
+          <AboutComp/>
+  <FooterComp/>
 </template>
 <script>
-
+import AboutComp from '../components/About-Comp.vue'
+import FooterComp from '../components/Footer-Comp.vue';
+import NavBarComp from '../components/NavBar-Comp.vue';
+export default {
+components: {NavBarComp, FooterComp, AboutComp}
+}
 </script>
 
 <style scoped>

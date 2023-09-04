@@ -1,7 +1,5 @@
 <template>
- <NavBarComp/>
- <router-view/>
- <FooterComp/>
+   <router-view/>
    <head>
      <!-- Font Awesome -->
      <link
@@ -12,17 +10,6 @@
 </template>
 
 <style>
-#app {
-  margin: 0;
-  padding:0;
-  box-sizing: border-box;
-
-}
-
-body{
-  min-height: 100vh;
-}
-
 
 nav a.router-link-exact-active {
   color: #42b983;
@@ -30,9 +17,5 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
-import FooterComp from './components/Footer-Comp.vue';
-import NavBarComp from './components/NavBar-Comp.vue';
-export default {
-components: {NavBarComp, FooterComp}
-}
+
 </script>

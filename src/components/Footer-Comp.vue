@@ -1,6 +1,6 @@
 <template>
     <!-- Footer -->
-<footer class="text-center text-lg-start text-muted pt-5">
+<footer class="text-center text-lg-start text-light pt-5 bg-black">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <!-- Left -->
@@ -120,7 +120,7 @@
   </div>
   <!-- Copyright -->
 </footer>
-<!-- Footer -->
+
 </template>
 
 <script>

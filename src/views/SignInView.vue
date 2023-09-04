@@ -1,14 +1,13 @@
 <template>
-    <SignComp/>
+  <SignComp/>
 </template>
 
 <script>
-import SignComp from '../components/SignIn-Comp.vue'
+import SignComp from "../components/SignIn-Comp.vue";
+
 export default {
-    components: {SignComp}
+  components:  {SignComp}
 }
 </script>
 
-<style>
-
-</style>
+<style scoped></style>

@@ -1,11 +1,54 @@
 <template>
+  <div class="products">
+    <h1>Products</h1>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        {{ product.name }} - {{ product.price }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+
+export default {
+  setup() {
+    const store = useStore();
+    const products = ref([]);
+
+    const fetchProducts = async () => {
+      try {
+        await store.dispatch('fetchProducts');
+        products.value = store.state.products;
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    onMounted(() => {
+      fetchProducts();
+    });
+
+    return {
+      products,
+    };
+  },
+};
+</script>
+<style scoped>
+.products{
+  margin-top: 7rem;
+  margin-bottom: 15rem;
+}
+</style>
+<!-- <template>
     <body>
  <div class="flexed-display">
     <div class="sidebar">
     <h2>Sidebar</h2>
-    <!-- Sidebar content goes here -->
   </div>
-  <!-- Cards -->
   <div class="container">
   <ul class="cards">
     <li class="card">
@@ -125,9 +168,7 @@ export default {
 
 .flexed-display{
     display:flex;
-
 }
-
   .sidebar {
     position: relative;
     width: 20rem;
@@ -211,4 +252,4 @@ h2 {
   }
 }
 
-</style>
+</style> -->

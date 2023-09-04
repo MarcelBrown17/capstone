@@ -3,11 +3,11 @@
 </template>
 
 <script>
-// import IntroComp from './components/';
+import IntroComp from '../components/Intro-Comp.vue'
 
 export default {
 components: {
-
+IntroComp
 }
 }
 </script>

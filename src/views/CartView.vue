@@ -1,14 +1,16 @@
 <template>
-    <CartComp/>
+  <NavBarComp />
+  <CartComp />
+  <FooterComp />
 </template>
 
 <script>
-import CartComp from '../components/Cart-Comp.vue';
+import FooterComp from "../components/Footer-Comp.vue";
+import NavBarComp from "../components/NavBar-Comp.vue";
+import CartComp from "../components/Cart-Comp.vue";
 export default {
-components: {CartComp}
-}
+  components: { CartComp, NavBarComp, FooterComp },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

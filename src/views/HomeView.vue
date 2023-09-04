@@ -1,16 +1,24 @@
 <template>
-  <HomeHeroComp />
+<NavBarComp/>
+ <HomeHeroComp />
   <HomeCardComp />
   <ReviewComp />
+ <FooterComp/>
 </template>
 
-<style></style>
+<style scoped>
+
+</style>
 
 <script>
 import ReviewComp from '../components/Review-Comp.vue';
 import HomeHeroComp from '../components/HomeHero-Comp.vue';
 import HomeCardComp from '../components/HomeCard-Comp.vue';
+import FooterComp from '../components/Footer-Comp.vue';
+import NavBarComp from '../components/NavBar-Comp.vue';
+
 export default {
-  components: { HomeHeroComp, ReviewComp, HomeCardComp },
+  components: { HomeHeroComp, ReviewComp, HomeCardComp,NavBarComp, FooterComp},
 };
+
 </script>

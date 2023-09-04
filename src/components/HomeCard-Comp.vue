@@ -73,24 +73,12 @@
 </template>
 
 <script>
+export default {
 
+}
 </script>
 
 <style scoped>
-:root {
-  --red: #ef233c;
-  --darkred: #c00424;
-  --platinum: #e5e5e5;
-  --black: #2b2d42;
-  --white: #fff;
-  --thumb: #edf2f4;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
 
 body {
   font: 16px / 24px "Rubik", sans-serif;
@@ -176,11 +164,11 @@ h2 {
 }
 
 .cards::-webkit-scrollbar-thumb {
-  background: var(--darkred);
+  background: red;
 }
 
 .cards::-webkit-scrollbar-track {
-  background: var(--thumb);
+  background: #000;
 }
 
 @media (min-width: 500px) {
@@ -198,9 +186,6 @@ h2 {
     flex-basis: calc(calc(100% / 3) - 20px);
   }
 
-  .card:not(:last-child) {
-    margin-right: 30px;
-  }
 }
 
 @media (min-width: 1100px) {
@@ -208,9 +193,6 @@ h2 {
     flex-basis: calc(25% - 30px);
   }
 
-  .card:not(:last-child) {
-    margin-right: 40px;
-  }
 }
 
 
