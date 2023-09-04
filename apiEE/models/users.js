@@ -5,7 +5,7 @@ const {createToken} = require('../middleware/authenticateUser')
 class Users {
     fetchUsers(req, res){
         const query = `
-        SELECT userID, firstName, lastName, userRole, emailAdd, userPass, userImge
+        SELECT userID, firstName, lastName, userRole, emailAdd, userPass, userImage
         FROM Users;`
 
         db.query(query, (err, results) => {
