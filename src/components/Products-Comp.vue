@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="products">
     <h1>Products</h1>
     <ul>
@@ -42,9 +42,10 @@ export default {
   margin-top: 7rem;
   margin-bottom: 15rem;
 }
-</style>
-<!-- <template>
+</style> -->
+<template>
     <body>
+      <h1>Products</h1>
  <div class="flexed-display">
     <div class="sidebar">
     <h2>Sidebar</h2>
@@ -164,19 +165,27 @@ export default {
 </script>
 
 <style scoped>
-
-
+body{
+  background-color: #ffffff;
+}
+h1{
+  margin-top: 6rem;
+  margin-left: 2rem;
+  color: #000000;
+}
 .flexed-display{
     display:flex;
+    margin-top: 1.5rem;
 }
   .sidebar {
     position: relative;
     width: 20rem;
-    background-color: #000000;
+    background-color: #fbfbfb;
     padding: 20px;
     height: 40rem;
     margin-left: 2rem;
-    border-radius: 20px;
+    border-radius: 10px;
+    border: 5px solid black;
   }
 
 
@@ -197,6 +206,7 @@ h2 {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  border: 3px solid black;
 }
 
 .card-link{
@@ -252,4 +262,4 @@ h2 {
   }
 }
 
-</style> -->
+</style>

@@ -81,15 +81,15 @@ export default {
 <style scoped>
 
 body {
+  margin-top: 6rem;
   font: 16px / 24px "Rubik", sans-serif;
   color: var(--black);
-  background: var(--platinum);
   margin: 50px 0;
 }
 
 .container {
   max-width: 1400px;
-  padding: 0 15px;
+  padding: 0 10px;
   margin: 0 auto;
 }
 
@@ -101,7 +101,6 @@ h2 {
 .cards {
   display: flex;
   padding: 25px 0px;
-  list-style: none;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
 }
@@ -113,9 +112,10 @@ h2 {
   padding: 20px;
   background: var(--white);
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 30%);
   scroll-snap-align: start;
   transition: all 0.2s;
+  border: 5px solid black;
 }
 
 .card:not(:last-child) {
@@ -123,8 +123,7 @@ h2 {
 }
 
 .card:hover {
-  color: var(--white);
-  background: var(--red);
+transform: scaleX(1.1);
 }
 
 .card .card-title {
@@ -164,11 +163,11 @@ h2 {
 }
 
 .cards::-webkit-scrollbar-thumb {
-  background: red;
+  background: rgb(0, 0, 0);
 }
 
 .cards::-webkit-scrollbar-track {
-  background: #000;
+  background-color: #7D7D7D;
 }
 
 @media (min-width: 500px) {

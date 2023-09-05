@@ -33,7 +33,7 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 fs-4">
                 <li class="nav-item">
-                  <router-link to="/home" class="nav-link" aria-current="page"
+                  <router-link to="/" class="nav-link" aria-current="page"
                     >Home</router-link
                   >
                 </li>

@@ -57,7 +57,7 @@
         </div>
       </div>
     </section>
-    <router-link to="/signin"><button>thr</button></router-link>
+    <router-link to="/introductionView"><button>thr</button></router-link>
   </div>
 </template>
 
@@ -70,7 +70,7 @@ export default {};
   display: flex;
   flex-direction: row;
   margin-top: 7rem;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .flex-1 {
@@ -83,53 +83,60 @@ export default {};
   margin: 6px;
 }
 .card-body1 {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   width: 23rem;
   height: 27rem;
   border-radius: 12px;
   padding: 1rem;
+  border: 5px solid black;
 }
 .card-body2 {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   width: 23rem;
   height: 10rem;
   border-radius: 12px;
   padding: 1rem;
+  border: 5px solid black;
 }
 .card-body3 {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   width: 44.5rem;
   height: 20rem;
   border-radius: 12px;
   padding: 1rem;
+  border: 5px solid black;
 }
 .card-body4 {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   width: 22rem;
   height: 17rem;
   border-radius: 12px;
   padding: 1rem;
+  border: 5px solid rgb(0, 0, 0);
 }
 .card-body5 {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   width: 22rem;
   height: 17rem;
   border-radius: 12px;
   padding: 1rem;
+  border: 5px solid rgb(0, 0, 0);
 }
 .card-body6 {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   width: 23rem;
   height: 12rem;
   border-radius: 12px;
   padding: 1rem;
+  border: 5px solid rgb(0, 0, 0);
 }
 .card-body7 {
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   width: 23rem;
   height: 25rem;
   border-radius: 12px;
   padding: 1rem;
+  border: 5px solid black;
 }
 
 .card-1 {

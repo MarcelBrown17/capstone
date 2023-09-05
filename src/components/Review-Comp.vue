@@ -30,6 +30,12 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="ways-to-pay">
+		<i></i>
+		<i></i>
+		<i></i>
+	</div>
 </body>
 </template>
 
@@ -60,7 +66,6 @@ html, body {
 	-webkit-box-pack: center;
 	justify-content: center;
 	margin: 67px 0 0;
-	margin-bottom: 2rem;
 }
 .mainSlider {
 	position: absolute;
