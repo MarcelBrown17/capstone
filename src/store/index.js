@@ -1,39 +1,6 @@
-// import { createStore } from "vuex";
-
-// export default createStore({
-//   state: {
-//     products: null,
-//     users: null,
-//     user: null,
-//     product: null,
-//     showSpinner: true,
-//     message: null,
-//   },
-//   getters: {},
-//   mutations: {
-//     setProducts(state, products) {
-//       state.products = products;
-//     },
-//   },
-//   actions: {
-//     async fetchProducts({ commit }) {
-//       try {
-//         const response = await fetch(
-//           "https://envyessentials.onrender.com/api/products"
-//         );
-//         const data = await response.json();
-//         commit("setProducts", data);
-//       } catch (error) {
-//         console.error("Error fetching products:", error);
-//       }
-//     },
-//   },
-//   modules: {},
-// });
-
 import { createStore } from "vuex";
 
-const YDUrl = "https://yokohamaapi.onrender.com/";
+const YDUrl = "https://envyessentials.onrender.com/";
 export default createStore({
   state: {
     users: null,
@@ -115,7 +82,7 @@ export default createStore({
         if (!response.ok) {
           throw new Error("Failed to fetch product");
         }
-        const {result} = await response.json();
+        const { result } = await response.json();
         context.commit("setProduct", result[0]);
       } catch (error) {
         console.error(error);
