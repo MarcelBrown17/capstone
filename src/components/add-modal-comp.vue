@@ -1,119 +1,118 @@
 <template>
-    <div>
-      <!-- Your existing content here -->
-  
-      <!-- Button to open the modal -->
-      <button @click="openModal" class="add-button">Add Product</button>
-  
-      <!-- Modal -->
-      <div class="modal" :class="{ 'modal-open': isModalOpen }">
-        <div class="modal-content">
-          <span @click="closeModal" class="close-button">×</span>
-          <h2>Add New Product</h2>
-          <form @submit.prevent="addProduct">
-            <div class="name">
-              <label for="productName">Product Name</label><br>
-              <input
-                type="text"
-                id="productName"
-                v-model="newProduct.prodName"
-                required
-              />
-            </div>
-            <div class="product-url">
-              <label for="productUrl">Product URL</label><br>
-              <input
-                type="url"
-                id="productUrl"
-                v-model="newProduct.prodUrl"
-                required
-              />
-            </div>
-            <div class="quantity">
-              <label for="quantity">Quantity</label><br>
-              <input
-                type="number"
-                id="quantity"
-                v-model.number="newProduct.quantity"
-                required
-              />
-            </div>
-            <div class="price">
-              <label for="price">Price</label><br>
-              <input
-                type="number"
-                id="price"
-                v-model.number="newProduct.price"
-                required
-              />
-            </div>
-            <div class="category">
-              <label for="category">Category</label><br>
-              <input
-                type="text"
-                id="category"
-                v-model="newProduct.category"
-                required
-              />
-            </div>
-  
-            <button type="submit" class="submit">Add</button>
-          </form>
-        </div>
+  <div>
+    <!-- Button to open the modal -->
+    <button @click="openModal" class="add-button">Add Product</button>
+
+    <!-- Modal -->
+    <div class="modal" :class="{ 'modal-open': isModalOpen }">
+      <div class="modal-content">
+        <span @click="closeModal" class="close-button">×</span>
+        <h2>Add New Product</h2>
+        <form @submit.prevent="addProduct">
+          <div class="form-group">
+            <label for="productName">Product Name</label><br>
+            <input
+              type="text"
+              id="productName"
+              v-model="newProduct.prodName"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="productUrl">Product URL</label><br>
+            <input
+              type="url"
+              id="productUrl"
+              v-model="newProduct.prodUrl"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantity</label><br>
+            <input
+              type="number"
+              id="quantity"
+              v-model.number="newProduct.quantity"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="price">Price</label><br>
+            <input
+              type="number"
+              id="price"
+              v-model.number="newProduct.price"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label><br>
+            <input
+              type="text"
+              id="category"
+              v-model="newProduct.category"
+              required
+            />
+          </div>
+
+          <button type="submit" class="submit">Add</button>
+        </form>
       </div>
     </div>
-  </template>
-<script>
-import axios from "axios";
+  </div>
+</template>
 
-export default {
-  data() {
-    return {
-      isModalOpen: false,
-      newProduct: {
-        prodName: "",
-        prodUrl: "",
-        quantity: 0,
-        price: 0,
-        category: "",
-      },
-    };
-  },
-  methods: {
-    async addProduct() {
-      try {
-        const response = await axios.post(
-          "https://envyessentials.onrender.com/products",
-          this.newProduct
-        );
-        // Assuming the API returns the newly added product details
-        const addedProduct = response.data;
+<!-- ... rest of the component remains the same ... -->
 
-        // Update your products list using the response or by refetching the product list
-        // For example: this.products.push(addedProduct);
-
-        this.newProduct = {
+  
+  <script>
+  import axios from "axios";
+  
+  export default {
+    data() {
+      return {
+        isModalOpen: false,
+        newProduct: {
           prodName: "",
           prodUrl: "",
           quantity: 0,
           price: 0,
           category: "",
-        };
+        },
+      };
+    },
+    methods: {
+      async addProduct() {
+  try {
+    const response = await axios.post(
+      "https://envyessentials.onrender.com/products",
+      this.newProduct
+    );
+    const addedProduct = response.data;
 
-        this.closeModal();
-      } catch (error) {
-        console.error("Error adding product:", error);
-      }
+    this.newProduct = {
+      prodName: "",
+      prodUrl: "",
+      quantity: 0,
+      price: 0,
+      category: "",
+    };
+
+    this.closeModal();
+  } catch (error) {
+    console.error("Error adding product:", error);
+  }
+},
+
+      openModal() {
+        this.isModalOpen = true;
+      },
+      closeModal() {
+        this.isModalOpen = false;
+      },
     },
-    openModal() {
-      this.isModalOpen = true;
-    },
-    closeModal() {
-      this.isModalOpen = false;
-    },
-  },
-};
-</script>
+  };
+  </script>
 
 <style scoped>
 

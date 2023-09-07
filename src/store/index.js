@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 
 const YDUrl = "https://envyessentials.onrender.com/";
+
 export default createStore({
   state: {
     users: null,
@@ -9,8 +10,11 @@ export default createStore({
     product: null,
     showSpinner: true,
     message: null,
+    cart: [], // Initialize an empty cart array to store selected products
   },
-  getters: {},
+  getters: {
+    // Define getters if needed
+  },
   mutations: {
     setMessage: (state, message) => {
       state.message = message;
@@ -29,6 +33,16 @@ export default createStore({
     },
     setSpinner(state, products) {
       state.showSpinner = products;
+    },
+    // Add a mutation to add a product to the cart
+    addToCart(state, product) {
+      const cartItem = state.cart.find((item) => item.prodID === product.prodID);
+
+      if (cartItem) {
+        cartItem.quantity++;
+      } else {
+        state.cart.push({ ...product, quantity: 1 });
+      }
     },
   },
   actions: {
@@ -87,6 +101,9 @@ export default createStore({
       } catch (error) {
         console.error(error);
       }
+    },
+    addToCart(context, product) {
+      context.commit("addToCart", product);
     },
   },
 });

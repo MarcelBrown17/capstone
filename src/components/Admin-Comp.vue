@@ -1,69 +1,71 @@
 <template>
-  <div class="table">
-    <div class="btns">
-      <Modal />
-      <h1 class="hh1">Products</h1>
+  <div class="admin-dashboard">
+    <div class="table">
+      <div class="btns">
+        <Modal />
+        <h1 class="hh1">Products</h1>
+      </div>
+      <div class="table-container">
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Product URL</th>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in products" :key="product.prodID">
+              <td>{{ product.prodID }}</td>
+              <td>
+                <img :src="product.prodUrl" :alt="product.prodName" class="img" />
+              </td>
+              <td>{{ product.prodName }}</td>
+              <td>{{ product.quantity }}</td>
+              <td>R {{ product.price }}</td>
+              <td>{{ product.Category }}</td>
+              <td>
+                <div class="btns">
+                  <button @click="deleteProduct(product.prodID)" class="delete">Delete</button>
+                  <!-- <router-link :to="{ name: 'edit-product', params: { prodID: product.prodID } }" class="edit">Edit</router-link> -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="table-container">
-      <table class="responsive-table">
+    <div class="users">
+      <h1 class="hh1">Users</h1>
+      <table>
         <thead>
           <tr>
-            <th>Product ID</th>
-            <th>Product URL</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Action</th>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Role</th> 
+            <th>User Pass</th> 
+            <th>Email Add</th> 
+            <th>User Image</th> 
           </tr>
         </thead>
         <tbody>
-          <tr v-for="product in products" :key="product.prodID">
-            <td>{{ product.prodID }}</td>
-            <td>
-              <img :src="product.prodUrl" :alt="product.prodName" class="img" />
-            </td>
-            <td>{{ product.prodName }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>R {{ product.price }}</td>
-            <td>{{ product.Category }}</td>
-            <td>
-              <div class="btns">
-                <button @click="deleteProduct(product.prodID)" class="delete">Delete</button>
-                <button @click="editProduct(product.prodID)" class="delete">Edit</button>
-              </div>
-            </td>
+          <tr v-for="user in users" :key="user.userID">
+            <td>{{ user.userID }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.userRole }}</td> 
+            <td>{{ user.userPass }}</td> 
+            <td>{{ user.emailAdd }}</td>
+            <img :src="user.userImage" :alt="user.userName" class="img" />
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="users">
-    <h1 class="hh1">Users</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>User Role</th> 
-          <th>User Pass</th> 
-          <th>Email Add</th> 
-          <th>User Image</th> 
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users" :key="user.userID">
-          <td>{{ user.userID }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.userRole }}</td> 
-          <td>{{ user.userPass }}</td> 
-          <td>{{ user.emailAdd }}</td>
-          <img :src="user.userImage" :alt="user.userName" class="img" />
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -82,9 +84,9 @@ export default {
     };
   },
   methods: {
-    async deleteProduct(id) {
+    async deleteProduct(prodID) {
       try {
-        await axios.delete(`https://envyessentials.onrender.com/products/${id}`);
+        await axios.delete(`https://envyessentials.onrender.com/product/${prodID}`);
         this.fetchProducts();
       } catch (err) {
         if (err.response && err.response.status === 404) {
@@ -111,9 +113,6 @@ export default {
         console.error("Error fetching users:", error);
       }
     },
-    editProduct(prodID) {
-      this.$router.push({ name: "edit-product", params: { prodID: prodID } });
-    },
   },
   mounted() {
     this.fetchProducts();
@@ -121,12 +120,11 @@ export default {
   },
 };
 </script>
-              
+
 
 <style scoped>
-
 .delete {
-    width: 5rem;
+  width: 5rem;
   background-color: black;
   color: white;
   height: 3rem;
@@ -134,18 +132,37 @@ export default {
 }
 
 .delete:hover {
-    transition: 0.5s;
-    background-color: white ;
-    box-shadow: 0 0 10px white;
-    color: black;
+  transition: 0.5s;
+  background-color: white ;
+  box-shadow: 0 0 10px white;
+  color: black;
 }
 
+.edit {
+  width: 5rem;
+  background-color: blue;
+  color: white;
+  height: 3rem;
+  font-family: "Julius Sans One", sans-serif;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.edit:hover {
+  transition: 0.5s;
+  background-color: #0066cc;
+  box-shadow: 0 0 10px #0066cc;
+  color: white;
+}
 
 .btns {
   display: flex;
   flex-direction: column;
-
 }
+
 .img {
   width: 5rem;
   height: 5rem;
@@ -158,9 +175,9 @@ export default {
 table {
   width: 100%;
 }
+
 .table {
   margin-top: 7rem;
-
 }
 
 tr {
@@ -173,11 +190,10 @@ td {
   color: white;
   border: 3px solid black;
   font-family: "Julius Sans One", sans-serif;
-
 }
 
 th {
-    color: white;
+  color: white;
   border: 3px solid black;
   font-family: "Julius Sans One", sans-serif;
 }
@@ -216,28 +232,27 @@ h1 {
 }
 
 @media only screen and (max-width: 768px) {
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
-    }
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
 
-    h1 {
-      color: white;
-      font-size: 1.9rem;
-      border-left: 3px solid black;
-      font-family: "Monoton", cursive;
-    }
+  h1 {
+    color: white;
+    font-size: 1.9rem;
+    border-left: 3px solid black;
+    font-family: "Monoton", cursive;
+  }
 
-    .table-container,table {
-      overflow-x: auto;
-    }
+  .table-container, table {
+    overflow-x: auto;
+  }
 
-
-    th, td {
-      padding: 0.5rem;
-    }
+  th, td {
+    padding: 0.5rem;
+  }
 }
 </style>

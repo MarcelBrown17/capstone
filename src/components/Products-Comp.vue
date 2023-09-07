@@ -1,25 +1,41 @@
 <template>
-  <body>
+  <div>
     <h1>Products</h1>
     <div class="flexed-display">
       <div class="sidebar">
         <h2>Sidebar</h2>
+        <!-- Add sidebar content here -->
       </div>
       <div class="products-body">
         <div class="product-cards" v-if="filteredProducts.length > 0">
           <div class="container">
             <ul class="cards">
               <!-- Loop through your products and display each one using the card template -->
-              <li class="card" v-for="product in filteredProducts" :key="product.prodID">
+              <li
+                class="card"
+                v-for="product in filteredProducts"
+                :key="product.prodID"
+              >
                 <div>
+                  <img
+                    :src="product.prodUrl"
+                    alt="Product Image"
+                    class="card-image"
+                  />
                   <h3 class="card-title">{{ product.prodName }}</h3>
-                  <div class="card-content">
-                    <p>{{ product.description }}</p>
-                  </div>
+                  <p class="card-price">$ {{ product.price }}</p>
+                  <!-- Add rating display here -->
                 </div>
                 <div class="card-link-wrapper">
-                  <!-- Link to a product detail page or any other action you want -->
-                  <a @click="viewSingle(product.prodID)" class="card-link">Learn More</a>
+                  <a @click="viewSingle(product.prodID)" class="card-link"
+                    >Learn More</a
+                  >
+                  <button
+                    @click="addToCart(product)"
+                    class="add-to-cart-button"
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </li>
             </ul>
@@ -30,22 +46,26 @@
         </div>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import Spinner from '@/components/Spinner.vue';
 
 export default {
-  components: { Spinner },
   data() {
-    return {
-      products: [],
-      selectedSort: "lowest",
-      searchInput: "",
-    };
-  },
+  return {
+    products: [], // Initialize products as an empty array
+    product: {
+      prodID: 0,
+      prodName: "",
+      Category: "",
+      price: 0,
+      prodUrl: "",
+    },
+    cart: [], // Initialize cart as an empty array
+  };
+},
   methods: {
     async fetchProducts() {
       try {
@@ -57,21 +77,21 @@ export default {
         console.error("Error fetching products:", error);
       }
     },
-    sortProducts() {
-      if (this.selectedSort === "lowest") {
-        this.products.sort((a, b) => a.amount - b.amount);
-      } else if (this.selectedSort === "highest") {
-        this.products.sort((a, b) => b.amount - a.amount);
-      }
-    },
-    filterProducts() {
-      const searchQuery = this.searchInput.toLowerCase();
-      this.products = this.products.filter(
-        (product) =>
-          product.prodName.toLowerCase().includes(searchQuery) ||
-          product.Category.toLowerCase().includes(searchQuery)
-      );
-    },
+    addToCart(product) {
+  // Check if this.cart is defined and initialize it if not
+  if (!this.cart) {
+    this.cart = [];
+  }
+
+  const existingItem = this.cart.find((item) => item.prodID === product.prodID);
+
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    this.cart.push({ ...product, quantity: 1 });
+  }
+  console.log('Product added to cart:', this.cart);
+},
     viewSingle(prodID) {
       const singleProduct = this.products.find(
         (product) => product.prodID === prodID
@@ -80,7 +100,6 @@ export default {
       this.$router.push({ name: "single-product", params: { prodID: prodID } });
     },
   },
- 
   computed: {
     filteredProducts() {
       if (this.searchInput) {
@@ -95,13 +114,13 @@ export default {
     },
   },
   mounted() {
-    this.fetchProducts();
-  },
+  // Fetch product data or perform other setup here
+  this.fetchProducts();
+},
+
 };
+
 </script>
-
-
-
 
 <style scoped>
 body {
@@ -140,11 +159,36 @@ h2 {
   overflow-x: hidden;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Create a grid with columns that adjust based on available space */
+  gap: 20px; /* Add some spacing between cards */
+}
+
 .card {
+  /* No specific width needed for each card; they'll automatically adjust within the grid */
+  width: 100%;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
   border: 3px solid black;
+}
+
+.card-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-title {
+  font-size: 20px;
+}
+
+.card-price {
+  font-size: 18px;
+  margin-top: 5px;
 }
 
 .card-link {
