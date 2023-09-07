@@ -1,5 +1,5 @@
 const db = require("../config");
-const { hash, compare, hashSync } = require("bcrypt");
+const { hash, compare } = require("bcrypt");
 const { createToken } = require("../middleware/authenticateUser");
 
 class Users {
@@ -75,11 +75,6 @@ class Users {
         // create token
         let token = createToken(user);
 
-        res.cookie("AuthorisedUser", token, {
-          maxAge: 3600000, // age of token, 3600000=1 hour
-          httpOnly: true,
-        });
-
         res.json({
           status: res.statusCode,
           message: "New user registered",
@@ -137,12 +132,6 @@ class Users {
               userPass: storedPasswordHash,
             };
             const token = createToken(user);
-
-            // save token
-            res.cookie("AuthorizedUser", token, {
-              maxAge: 3600000,
-              httpOnly: true,
-            });
 
             res.json({
               status: res.statusCode,
