@@ -45,7 +45,7 @@ routes.get('/product/:id', (req, res) => {
     products.fetchProduct(req, res)
 });
 
-routes.post('/product', 
+routes.post('/products', 
 bodyParser.json(), (req, res) => {
     products.addProduct(req, res)
 });
@@ -55,12 +55,12 @@ bodyParser.json(), (req, res) => {
     products.updateProduct(req, res)
 });
 
-routes.patch('/product/:id', 
+routes.patch('/products/:id', 
 bodyParser.json(), (req, res) => {
     products.updateProduct(req, res)
 });
 
-routes.delete('/product/:id',
+routes.delete('/products/:id',
 bodyParser.json(), (req, res) => {
     products.deleteProduct(req, res)
 });
