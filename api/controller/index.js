@@ -41,7 +41,7 @@ routes.get('/products', (req, res) => {
     products.fetchProducts(req, res)
 });
 
-routes.get('/product/:id', (req, res) => {
+routes.get('/products/:id', (req, res) => {
     products.fetchProduct(req, res)
 });
 
@@ -50,7 +50,7 @@ bodyParser.json(), (req, res) => {
     products.addProduct(req, res)
 });
 
-routes.put('/product/:id', 
+routes.put('/products/:id', 
 bodyParser.json(), (req, res) => {
     products.updateProduct(req, res)
 });
