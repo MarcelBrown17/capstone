@@ -52,31 +52,31 @@ export default {
   },
   methods: {
     async fetchCartData() {
-      try {
-        const response = await axios.get(
-          "https://envyessentials.onrender.com/cart"
-        );
+  try {
+    const response = await axios.get(
+      "https://envyessentials.onrender.com/cart/:id" // Change this URL to the correct one
+    );
 
-        if (response.status === 200) {
-          this.cart = response.data;
-        } else {
-          console.error("Failed to fetch cart data.");
-        }
-      } catch (error) {
-        console.error("Error fetching cart data:", error);
-      }
-    },
-    addToCart(product) {
-      const existingItem = this.cart.find(
-        (item) => item.prodID === product.prodID
-      );
+    if (response.status === 200) {
+      this.cart = response.data;
+    } else {
+      console.error("Failed to fetch cart data.");
+    }
+  } catch (error) {
+    console.error("Error fetching cart data:", error);
+  }
+},
 
-      if (existingItem) {
-        existingItem.quantity++;
-      } else {
-        this.cart.push({ product, quantity: 1 });
-      }
-    },
+addToCart(product) {
+  const existingItem = this.cart.find((item) => item.prodID === product.prodID);
+
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    this.cart.push({ ...product, quantity: 1 }); // Push the product directly
+  }
+},
+
     removeFromCart(prodID) {
       const index = this.cart.findIndex((item) => item.prodID === prodID);
 

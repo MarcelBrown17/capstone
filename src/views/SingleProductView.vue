@@ -1,35 +1,57 @@
 <template>
-  <NavBarComp />
-  <div class="product-page">
-    <div class="product-images">
-      <img
-        v-for="(image, index) in productImages"
-        :key="index"
-        :src="image"
-        :alt="`Product Image ${index + 1}`"
-      />
-    </div>
-    <div class="product-details">
-      <div class="product-card">
-        <!-- Product information goes here -->
-        <h2>Product Name</h2>
-        <p>
-          Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-        <p>Price: $99.99</p>
-        <!-- Add more product details as needed -->
+  <NavBarComp/>
+  <div>
+      <div class="product-cards" v-if="product">
+        <div
+          class="card"
+        >
+          <div class="card-img">
+            <img
+              :src="product.prodUrl"
+              :alt="product.prodName"
+              class="example-img"
+            />
+          </div>
+          <div class="card-info">
+            <div class="name">
+              <h4>{{ product.prodName }}</h4>
+            </div>
+            <div class="price">
+              <h5>R {{ product.amount }}</h5>
+            </div>
+            <div class="cart">
+              <button type="button" class="cart-btn">Add to Cart</button>
+              <button type="button" class="view-btn" @click="viewSingle(product.prodID)">View More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <spinner />
       </div>
     </div>
-  </div>
-  <FooterComp />
+  <FooterComp/>
 </template>
 
 <script>
-import FooterComp from "../components/Footer-Comp.vue";
 import NavBarComp from "../components/NavBar-Comp.vue";
+import FooterComp from "../components/Footer-Comp.vue";
+import SingleProductComp from "../components/Single-Product-Comp.vue"
+import spinner from '@/components/SpinnerComp.vue'
+
 export default {
-  components: { NavBarComp, FooterComp },
-};
+    components: {spinner,NavBarComp, FooterComp ,SingleProductComp},
+      computed: {
+        product() {
+          return this.$store.state.product
+        },
+      },
+
+       mounted() {
+        this.$store.dispatch('getProduct', this.$route.params.id)
+      }
+         
+      }
 </script>
 
 <style scoped>
@@ -48,8 +70,8 @@ export default {
 
 .product-images img {
   width: 100%;
-  max-width: 300px; /* Adjust the maximum width as needed */
-  margin-bottom: 10px; /* Space between images */
+  max-width: 300px;
+  margin-bottom: 10px;
 }
 
 .product-details {
@@ -63,6 +85,4 @@ export default {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
-
-/* Add more styling for the product details as needed */
 </style>

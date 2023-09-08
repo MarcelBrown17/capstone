@@ -1,6 +1,6 @@
 <template>
     <div class="spinner">
-        Loading
+        Loading...
       <div class="dot dot1"></div>
       <div class="dot dot2"></div>
       <div class="dot dot3"></div>
@@ -60,7 +60,7 @@
   
   <script>
   export default {
-    name: "Spinner",
+    name: "spinner",
   };
   </script>
   

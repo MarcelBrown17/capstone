@@ -4,7 +4,46 @@
     <div class="flexed-display">
       <div class="sidebar">
         <h2>Sidebar</h2>
-        <!-- Add sidebar content here -->
+        <div class="navigation">
+    <div class="sort">
+      <label for="search">Sort by Price</label>
+      <select
+        name="sort"
+        id="sort"
+        v-model="selectedSort"
+        @change="sortProducts"
+      >
+        <option value="lowest" id="lowest">Lowest</option>
+        <option value="highest" id="highest">Highest</option>
+      </select>
+    </div>
+    <div class="search">
+      <div class="icon">
+        <img
+          src="https://i.postimg.cc/Qd5jtmBR/icons8-search-50-removebg-preview.png"
+          alt="icon"
+          class="icon"
+        />
+      </div>
+      <div class="search-bar">
+        <label for="search">Search</label>
+        <input
+          type="text"
+          class="type-s"
+          placeholder="Name of item"
+          v-model="searchInput"
+        />
+        <button type="submit" class="btn" @click="filterProducts()">
+          <img
+            src="https://i.postimg.cc/Qd5jtmBR/icons8-search-50-removebg-preview.png"
+            alt="search-img"
+            class="search-img"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+
       </div>
       <div class="products-body">
         <div class="product-cards" v-if="filteredProducts.length > 0">
@@ -12,14 +51,15 @@
             <ul class="cards">
               <!-- Loop through your products and display each one using the card template -->
               <li
-                class="card"
-                v-for="product in filteredProducts"
-                :key="product.prodID"
+              class="card"
+        v-for="product in products"
+        :key="product.prodID"
+        :product="product"
               >
                 <div>
                   <img
                     :src="product.prodUrl"
-                    alt="Product Image"
+                    alt="product.prodName"
                     class="card-image"
                   />
                   <h3 class="card-title">{{ product.prodName }}</h3>
@@ -27,9 +67,17 @@
                   <!-- Add rating display here -->
                 </div>
                 <div class="card-link-wrapper">
-                  <a @click="viewSingle(product.prodID)" class="card-link"
-                    >Learn More</a
-                  >
+                  <button class="view-btn">
+                    <router-link
+                      class="single"
+                      :to="{
+                        name: 'single-product',
+                        params: { id: product.prodID },
+                      }"
+                    >
+                      View More
+                    </router-link>
+                  </button>
                   <button
                     @click="addToCart(product)"
                     class="add-to-cart-button"
@@ -42,7 +90,9 @@
           </div>
         </div>
         <div v-else>
-          <Spinner></Spinner>
+          <spinner>
+          <p>Loading...</p>
+        </spinner>
         </div>
       </div>
     </div>
@@ -51,21 +101,17 @@
 
 <script>
 import axios from "axios";
+import spinner from "./SpinnerComp.vue";
 
 export default {
+  components: { spinner },
   data() {
-  return {
-    products: [], // Initialize products as an empty array
-    product: {
-      prodID: 0,
-      prodName: "",
-      Category: "",
-      price: 0,
-      prodUrl: "",
-    },
-    cart: [], // Initialize cart as an empty array
-  };
-},
+    return {
+      products: [],
+      searchInput: "",
+      cart: [],
+    };
+  },
   methods: {
     async fetchProducts() {
       try {
@@ -78,20 +124,19 @@ export default {
       }
     },
     addToCart(product) {
-  // Check if this.cart is defined and initialize it if not
-  if (!this.cart) {
-    this.cart = [];
-  }
+      if (!this.cart) {
+        this.cart = [];
+      }
 
-  const existingItem = this.cart.find((item) => item.prodID === product.prodID);
+      const existingItem = this.cart.find((item) => item.prodID === product.prodID);
 
-  if (existingItem) {
-    existingItem.quantity++;
-  } else {
-    this.cart.push({ ...product, quantity: 1 });
-  }
-  console.log('Product added to cart:', this.cart);
-},
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        this.cart.push({ ...product, quantity: 1 });
+      }
+      console.log('Product added to cart:', this.cart);
+    },
     viewSingle(prodID) {
       const singleProduct = this.products.find(
         (product) => product.prodID === prodID
@@ -114,12 +159,9 @@ export default {
     },
   },
   mounted() {
-  // Fetch product data or perform other setup here
-  this.fetchProducts();
-},
-
+    this.fetchProducts();
+  },
 };
-
 </script>
 
 <style scoped>

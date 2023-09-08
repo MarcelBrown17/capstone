@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- Your existing content here -->
+
     <!-- Button to open the modal -->
     <button @click="openModal" class="add-button">Add Product</button>
 
@@ -9,7 +11,7 @@
         <span @click="closeModal" class="close-button">×</span>
         <h2>Add New Product</h2>
         <form @submit.prevent="addProduct">
-          <div class="form-group">
+          <div class="name">
             <label for="productName">Product Name</label><br>
             <input
               type="text"
@@ -18,7 +20,7 @@
               required
             />
           </div>
-          <div class="form-group">
+          <div class="product-url">
             <label for="productUrl">Product URL</label><br>
             <input
               type="url"
@@ -27,7 +29,7 @@
               required
             />
           </div>
-          <div class="form-group">
+          <div class="quantity">
             <label for="quantity">Quantity</label><br>
             <input
               type="number"
@@ -36,8 +38,8 @@
               required
             />
           </div>
-          <div class="form-group">
-            <label for="price">Price</label><br>
+          <div class="amount">
+            <label for="price">Amount</label><br>
             <input
               type="number"
               id="price"
@@ -45,7 +47,7 @@
               required
             />
           </div>
-          <div class="form-group">
+          <div class="category">
             <label for="category">Category</label><br>
             <input
               type="text"
@@ -62,59 +64,60 @@
   </div>
 </template>
 
-<!-- ... rest of the component remains the same ... -->
+<script>
+import axios from "axios";
 
-  
-  <script>
-  import axios from "axios";
-  
-  export default {
-    data() {
-      return {
-        isModalOpen: false,
-        newProduct: {
+export default {
+  data() {
+    return {
+      isModalOpen: false,
+      newProduct: {
+        prodName: "",
+        prodUrl: "",
+        quantity: 0,
+        price: 0,
+        category: "",
+      },
+    };
+  },
+  methods: {
+    async addProduct() {
+      try {
+        const response = await axios.post(
+          "https://envyessentials.onrender.com/products",
+          this.newProduct
+        );
+        // Assuming the API returns the newly added product details
+        const addedProduct = response.data;
+
+        // Update your products list using the response or by refetching the product list
+        // For example: this.products.push(addedProduct);
+
+        this.newProduct = {
           prodName: "",
           prodUrl: "",
           quantity: 0,
           price: 0,
           category: "",
-        },
-      };
+        };
+
+        this.closeModal();
+      } catch (error) {
+        console.error("Error adding product:", error);
+      }
     },
-    methods: {
-      async addProduct() {
-  try {
-    const response = await axios.post(
-      "https://envyessentials.onrender.com/products",
-      this.newProduct
-    );
-    const addedProduct = response.data;
-
-    this.newProduct = {
-      prodName: "",
-      prodUrl: "",
-      quantity: 0,
-      price: 0,
-      category: "",
-    };
-
-    this.closeModal();
-  } catch (error) {
-    console.error("Error adding product:", error);
-  }
-},
-
-      openModal() {
-        this.isModalOpen = true;
-      },
-      closeModal() {
-        this.isModalOpen = false;
-      },
+    openModal() {
+      this.isModalOpen = true;
     },
-  };
-  </script>
+    closeModal() {
+      this.isModalOpen = false;
+    },
+  },
+};
+</script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Monoton&display=swap");
 
 .add-button {
   width: 5rem;
@@ -175,7 +178,7 @@ h2 {
     margin: 1rem;
 }
 
-.price {
+.amount {
     margin: 1rem;
 }
 

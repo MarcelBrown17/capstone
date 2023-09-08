@@ -29,10 +29,10 @@ export default createStore({
       state.users = users;
     },
     setUser: (state, user) => {
-      state.users = user;
+      state.user = user; // Update 'user' instead of 'users'
     },
-    setSpinner(state, products) {
-      state.showSpinner = products;
+    setSpinner(state, showSpinner) {
+      state.showSpinner = showSpinner;
     },
     // Add a mutation to add a product to the cart
     addToCart(state, product) {
@@ -46,7 +46,7 @@ export default createStore({
     },
   },
   actions: {
-    getUsers: async (context) => {
+    fetchUsers: async (context) => {
       try {
         const res = await fetch(`${YDUrl}users`);
         if (!res.ok) {
@@ -57,10 +57,11 @@ export default createStore({
         context.commit("setSpinner", false);
       } catch (error) {
         context.commit("setSpinner", true);
+        context.commit("setMessage", "Error fetching users"); // Handle the error here
         console.error("Error fetching users:", error);
       }
     },
-    async getUser(context, id) {
+    async fetchUser(context, id) {
       try {
         const res = await fetch(`${YDUrl}users/${id}`);
         if (!res.ok) {
@@ -68,15 +69,16 @@ export default createStore({
         }
         const { results, err } = await res.json();
         if (results) {
-          context.commit("setUsers", results);
+          context.commit("setUser", results); // Update 'user' instead of 'users'
         } else {
           context.commit("setMessage", err);
         }
       } catch (error) {
+        context.commit("setMessage", "Error fetching user by ID"); // Handle the error here
         console.error("Error fetching user by ID:", error);
       }
     },
-    getProducts: async (context) => {
+    fetchProducts: async (context) => {
       try {
         const res = await fetch(`${YDUrl}products`);
         if (!res.ok) {
@@ -87,10 +89,11 @@ export default createStore({
         context.commit("setSpinner", false);
       } catch (error) {
         context.commit("setSpinner", true);
+        context.commit("setMessage", "Error fetching products"); // Handle the error here
         console.error("Error fetching products:", error);
       }
     },
-    getProduct: async (context, id) => {
+    fetchProduct: async (context, id) => {
       try {
         const response = await fetch(`${YDUrl}product/${id}`);
         if (!response.ok) {
@@ -99,6 +102,7 @@ export default createStore({
         const { result } = await response.json();
         context.commit("setProduct", result[0]);
       } catch (error) {
+        context.commit("setMessage", "Error fetching product"); // Handle the error here
         console.error(error);
       }
     },
