@@ -1,57 +1,48 @@
 <template>
-  <body class="body">
-    <div class="container">
-      <div class="card">
-        <div class="card-img">
-          <img :src="product.prodUrl" :alt="product.prodName" class="example-img">
-        </div>
-        <div class="card-info">
-          <div class="name">
-            <h4>{{ product.prodName }}</h4>
-          </div>
-          <div class="price">
-            <h5>R {{ product.price }}</h5>
-          </div>
-          <div class="cart">
-            <button @click="addToCart(product)" type="button" class="cart-btn">Add to Cart</button>
-          </div>
-        </div>
+  <div class="single-product">
+    <h1>{{ selectedProduct.prodName }}</h1>
+    <div class="product-details">
+      <div class="product-image">
+        <img :src="selectedProduct.prodUrl" :alt="selectedProduct.prodName" />
+      </div>
+      <div class="product-info">
+        <p><strong>Price:</strong> R {{ selectedProduct.price }}</p>
+        <p><strong>Category:</strong> {{ selectedProduct.Category }}</p>
+        <!-- Add other product details here -->
+        <button @click="addToCart(selectedProduct)">Add to Cart</button>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
-  data() {
-    return {
-      product: {},
-    };
-  },
-  created() {
-    const prodID = this.$route.params.prodID;
-    this.fetchProductDetails(prodID);
+  computed: {
+    selectedProduct() {
+      return this.$store.state.selectedProduct;
+    },
   },
   methods: {
-    async fetchProductDetails(prodID) {
-      try {
-        const response = await axios.get(`https://envyessentials.onrender.com/product/${prodID}`);
-        console.log(response.data);
-        this.product = response.data.result;
-      } catch (error) {
-        console.error('Error fetching product details:', error);
-      }
+    addToCart(product) {
+      // Implement your cart logic here
+      // You can dispatch an action to add the product to the cart in your Vuex store
     },
-    // addToCart(product) {
-    //   this.$store.dispatch("addToCart", product);
-    //   this.$emit('add-to-cart', product);
-    // },
   },
 };
 </script>
 
+<style scoped>
+/* Add your CSS styles for the single product view here */
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.product-image img {
+  max-width: 100%;
+  max-height: 100%;
+}
+</style>
 
 <style scoped>
 body {
@@ -74,6 +65,10 @@ body {
 .card-img {
   flex: 1;
   padding: 1rem;
+}
+.product-image{
+  height: 10rem;
+  width: 10rem;
 }
 .example-img {
   max-width: 100%;

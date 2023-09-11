@@ -24,9 +24,6 @@
         <i class="fab fa-instagram"></i>
       </a>
       <a href="" class="me-4 text-reset">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
         <i class="fab fa-github"></i>
       </a>
     </div>
@@ -43,33 +40,35 @@
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <!-- Content -->
           <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Company name
+            <i class="fas fa-gem me-3"></i>Envy Essentials
           </h6>
           <p>
-            Here you can use rows and columns to organize your footer content. Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit.
+          Elevate your elegance.
           </p>
         </div>
         <!-- Grid column -->
 
         <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4" id="sec-nav">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Products
+          <div class="links">
+            <h6 class="text-uppercase fw-bold mb-4">
+            Navigation
           </h6>
           <p>
-            <a href="#!" class="text-reset">Angular</a>
+          <router-link to="home" class="
+          link">Home</router-link>
           </p>
           <p>
-            <a href="#!" class="text-reset">React</a>
+            <router-link to="products" class="link">Products</router-link>
           </p>
           <p>
-            <a href="#!" class="text-reset">Vue</a>
+            <router-link to="about" class="link">About</router-link>
           </p>
           <p>
-            <a href="#!" class="text-reset">Laravel</a>
+            <router-link to="contact" class="link">Contact</router-link>
           </p>
+          </div>
         </div>
         <!-- Grid column -->
 
@@ -77,20 +76,21 @@
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">
-            Useful links
+            Services
           </h6>
-          <p>
-            <a href="#!" class="text-reset">Pricing</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Settings</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Orders</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Help</a>
-          </p>
+          <div>
+            <p class="text-reset">Formal Wear</p>
+          </div>
+          <div>
+            <p class="text-reset">Delivery</p>
+          </div>
+          <div>
+            <p class="text-reset">Quality Control</p>
+          </div>
+          <div>
+            <p class="text-reset">Fashion</p>
+          </div>
+        
         </div>
         <!-- Grid column -->
 
@@ -98,10 +98,10 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-          <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+          <p><i class="fas fa-home me-3"></i> Cape Town, South Africa</p>
           <p>
             <i class="fas fa-envelope me-3"></i>
-            info@example.com
+            enyessentials@gmail.com
           </p>
           <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
           <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
@@ -115,8 +115,8 @@
 
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2021 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    © 2023Copyright:
+    <span class="text-reset fw-bold" href="" id="rowan">EnvyEssentials</span>
   </div>
   <!-- Copyright -->
 </footer>
@@ -130,5 +130,12 @@ export default{
 </script>
 
 <style scoped>
+.link{
+  text-decoration: none !important;
+  color: white;
+}
 
+#rowan{
+text-decoration: none !important;
+}
 </style>

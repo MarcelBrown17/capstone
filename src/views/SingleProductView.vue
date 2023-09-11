@@ -1,7 +1,7 @@
 <template>
   <NavBarComp/>
   <div>
-      <div class="product-cards" v-if="product">
+      <div class="product-cards" v-if="product" :product="product">
         <div
           class="card"
         >
@@ -17,7 +17,7 @@
               <h4>{{ product.prodName }}</h4>
             </div>
             <div class="price">
-              <h5>R {{ product.amount }}</h5>
+              <h5>R {{ product.price }}</h5>
             </div>
             <div class="cart">
               <button type="button" class="cart-btn">Add to Cart</button>
@@ -43,12 +43,12 @@ export default {
     components: {spinner,NavBarComp, FooterComp ,SingleProductComp},
       computed: {
         product() {
-          return this.$store.state.product
+          return this.$store.state.selectedProduct
         },
       },
 
        mounted() {
-        this.$store.dispatch('getProduct', this.$route.params.id)
+        this.$store.dispatch('fetchProduct')
       }
          
       }

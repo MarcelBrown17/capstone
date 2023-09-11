@@ -1,6 +1,12 @@
 import { createStore } from "vuex";
+import axios from "axios";
+import swal from "sweetalert";
+import router from "@/router/index";
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+import authenticateUser from "@/Services/authenticateUser";
 
-const YDUrl = "https://envyessentials.onrender.com/";
+const url = "https://envyessentials.onrender.com/";
 
 export default createStore({
   state: {
@@ -8,106 +14,169 @@ export default createStore({
     user: null,
     products: null,
     product: null,
-    showSpinner: true,
-    message: null,
-    cart: [], // Initialize an empty cart array to store selected products
+    spinner: false,
+    token: null,
+    msg: null,
+    add: null,
   },
-  getters: {
-    // Define getters if needed
-  },
+  getters: {},
   mutations: {
-    setMessage: (state, message) => {
-      state.message = message;
-    },
-    setProducts: (state, products) => {
-      state.products = products;
-    },
-    setProduct: (state, product) => {
-      state.product = product;
-    },
-    setUsers: (state, users) => {
+    setUsers(state, users) {
       state.users = users;
     },
-    setUser: (state, user) => {
-      state.user = user; // Update 'user' instead of 'users'
+    setUser(state, user) {
+      state.user = user;
     },
-    setSpinner(state, showSpinner) {
-      state.showSpinner = showSpinner;
+    setProducts(state, products) {
+      state.products = products;
     },
-    // Add a mutation to add a product to the cart
-    addToCart(state, product) {
-      const cartItem = state.cart.find((item) => item.prodID === product.prodID);
-
-      if (cartItem) {
-        cartItem.quantity++;
-      } else {
-        state.cart.push({ ...product, quantity: 1 });
-      }
+    setProduct(state, product) {
+      state.product = product;
+    },
+    setSpinner(state, spinner) {
+      state.spinner = spinner;
+    },
+    setToken(state, token) {
+      state.token = token;
+    },
+    setMsg(state, msg) {
+      state.msg = msg;
+    },
+    setDeleteUsers(state, data) {
+      state.users = data;
+    },
+    setAdd(state, data) {
+      state.add = data;
     },
   },
   actions: {
-    fetchUsers: async (context) => {
+        async fetchUsers(context) {
+          try {
+            const { data } = await axios.get(`${url}users`);
+            context.commit("setUsers", data.results);
+          } catch (e) {
+            context.commit("setMsg", "An error occurred");
+          }
+        },
+    
+    async fetchProducts(context) {
       try {
-        const res = await fetch(`${YDUrl}users`);
-        if (!res.ok) {
-          throw new Error("Failed to fetch users");
-        }
-        const users = await res.json();
-        context.commit("setUsers", users);
-        context.commit("setSpinner", false);
-      } catch (error) {
-        context.commit("setSpinner", true);
-        context.commit("setMessage", "Error fetching users"); // Handle the error here
-        console.error("Error fetching users:", error);
+        const { data } = await axios.get(`${url}products`);
+        context.commit("setProducts", data.results);
+        console.log(data.results);
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
       }
     },
-    async fetchUser(context, id) {
+    async fetchProduct(context, ProdID) {
       try {
-        const res = await fetch(`${YDUrl}users/${id}`);
-        if (!res.ok) {
-          throw new Error("Failed to fetch user by ID");
-        }
-        const { results, err } = await res.json();
-        if (results) {
-          context.commit("setUser", results); // Update 'user' instead of 'users'
+        const { data } = await axios.get(`${url}products/${ProdID}`);
+        context.commit("setProduct", data.results[0]);
+        console.log(data.results);
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
+      }
+    },
+
+    async UserDeleted(context, userID) {
+      try {
+        const res = await axios.delete(`${url}user/${userID}`);
+        context.commit("setAdd", res.data);
+        console.log("worked");
+        location.reload();
+      } catch (e) {
+        console.log("did not work");
+      }
+    },
+    async ProdDeleted(context, prodID) {
+      try {
+        const res = await axios.delete(`${url}products/${prodID}`);
+        context.commit("setAdd", res.data);
+        console.log("worked");
+        location.reload();
+      } catch (e) {
+        console.log("did not work");
+      }
+    },
+    async addProduct({ commit }, productdata) {
+      try {
+        const res = await axios.post(`${url}product`, productdata);
+        commit("setAdd", res.data);
+        console.log("test complete");
+      } catch (e) {
+        console.log(err);
+      }
+    },
+
+    async addUser({ commit }, userData) {
+      try {
+        const response = await axios.post(`${url}users`, userData);
+        commit("setAddUser", response.data);
+        location.reload();
+        console.log("testing");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    //register
+    async register(context, payload) {
+      try {
+        const { msg } = (await axios.post(`${url}register`, payload)).data;
+        if (msg) {
+          swal({
+            title: "Registration",
+            text: msg,
+            icon: "success",
+            timer: 4000,
+          });
+          context.dispatch("fetchUsers");
+          router.push({ name: "login" });
         } else {
-          context.commit("setMessage", err);
+          swal({
+            title: "Error",
+            text: msg,
+            icon: "error",
+            timer: 4000,
+          });
         }
-      } catch (error) {
-        context.commit("setMessage", "Error fetching user by ID"); // Handle the error here
-        console.error("Error fetching user by ID:", error);
+      } catch (e) {
+        context.commit("setMsg", "An error has occured");
       }
     },
-    fetchProducts: async (context) => {
+    //login
+    async login(context, payload) {
       try {
-        const res = await fetch(`${YDUrl}products`);
-        if (!res.ok) {
-          throw new Error("Failed to fetch products");
+        const { msg, token, results } = (
+          await axios.post(`${url}login`, payload)
+        ).data;
+        if (results) {
+          context.commit("setUser", { results, msg });
+          cookies.set("MannUser", { msg, token, results });
+          authenticateUser.applyToken(token);
+          swal({
+            title: msg,
+            text: `Welcome back ${results?.firstName} ${results?.lastName}`,
+            icon: "success",
+            timer: 4000,
+          });
+          router.push({ name: "home" });
+        } else {
+          swal({
+            title: "Error",
+            text: msg,
+            icon: "error",
+            timer: 4000,
+          });
         }
-        const products = await res.json();
-        context.commit("setProducts", products);
-        context.commit("setSpinner", false);
-      } catch (error) {
-        context.commit("setSpinner", true);
-        context.commit("setMessage", "Error fetching products"); // Handle the error here
-        console.error("Error fetching products:", error);
+      } catch (e) {
+        context.commit("setMsg", "An error has occured");
       }
     },
-    fetchProduct: async (context, id) => {
-      try {
-        const response = await fetch(`${YDUrl}product/${id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch product");
-        }
-        const { result } = await response.json();
-        context.commit("setProduct", result[0]);
-      } catch (error) {
-        context.commit("setMessage", "Error fetching product"); // Handle the error here
-        console.error(error);
-      }
-    },
-    addToCart(context, product) {
-      context.commit("addToCart", product);
+    LogOut(context) {
+      context.commit("setUser");
+      cookies.remove("MannUser");
     },
   },
+  modules: {},
 });

@@ -1,10 +1,8 @@
 <template>
   <div>
-   
     <div class="btns">
       <Modal />
       <h1 class="hh1">Products</h1>
-
     </div>
     <div class="table-container">
       <table class="responsive-table">
@@ -27,18 +25,19 @@
             </td>
             <td>{{ product.prodName }}</td>
             <td>{{ product.quantity }}</td>
-            <td> R {{ product.price }}</td>
+            <td>R {{ product.price }}</td>
             <td>{{ product.Category }}</td>
             <td>
               <div class="btns">
-                <button @click="deleteProduct(product.prodID)" class="delete">Delete</button>
+                <button @click="deleteProduct(product.prodID)" class="delete">
+                  Delete
+                </button>
                 <router-link
-              :to="`/edit-product/${product.prodID}`"
-              class="delete"
-            >
-              Edit
-            </router-link>
-
+                  :to="`/edit-product/${product.prodID}`"
+                  class="delete"
+                >
+                  Edit
+                </router-link>
               </div>
             </td>
           </tr>
@@ -47,37 +46,36 @@
     </div>
   </div>
   <div class="users">
-      <h1 class="hh1">Users</h1>
-      <table>
-    <thead>
-      <tr>
-        <th>User ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Password</th>
-        <th>User Role</th>
-        <th>Email</th>
-        <th>User Profile</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="user in users" :key="user.userID">
-        <td>{{ user.userID }}</td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.userPass }}</td>
-        <td>{{ user.userRole }}</td>
-        <td>{{ user.emailAdd }}</td>
-        <td>{{ user.userImage }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <h1 class="hh1">Users</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Password</th>
+          <th>User Role</th>
+          <th>Email</th>
+          <th>User Profile</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in users" :key="user.userID">
+          <td>{{ user.userID }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.userPass }}</td>
+          <td>{{ user.userRole }}</td>
+          <td>{{ user.emailAdd }}</td>
+          <td>{{ user.userImage }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Modal from '@/components/add-modal-comp.vue';
+import Modal from "@/components/add-modal-comp.vue";
 
 export default {
   components: {
@@ -88,52 +86,35 @@ export default {
       products: [],
     };
   },
-  methods: {
-    async deleteProduct(id) {
-      try {
-        await axios.delete(`https://envyessentials.onrender.com/products/${id}`);
-        this.fetchProducts();
-      } catch (err) {
-        if (err.response && err.response.status === 404) {
-          alert("Product not found or already deleted.");
-        } else {
-          alert("Error deleting product.");
-          console.error("Error deleting product:", err);
-        }
-      }
+  computed: {
+    products() {
+      return this.$store.state.products;
     },
-    async fetchProducts() {
-      try {
-        const response = await axios.get("https://envyessentials.onrender.com/products");
-        this.products = response.data.results;
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
+    users() {
+      return this.$store.state.users;
     },
-    async fetchUsers() {
-    try {
-      const response = await axios.get("https://envyessentials.onrender.com/users");
-      this.users = response.data.results;
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  },
-    editProduct(prodID) {
-    this.$router.push({ name: "edit-product", params: { prodID: prodID } });
-  }
   },
   mounted() {
-    this.fetchProducts();
-    this.fetchUsers();
+    this.$store.dispatch("fetchProducts");
+    this.$store.dispatch("fetchUsers");
+  },
+  methods: {
+    deleteProduct(ProdID) {
+      this.$store.dispatch("ProdDeleted", ProdID);
+    },
+
+    deleteUser(userID) {
+      this.$store.dispatch("UserDeleted", userID);
+    },
   },
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Monoton&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Monoton&display=swap");
 
 .delete {
-    width: 5rem;
+  width: 5rem;
   background-color: black;
   color: white;
   height: 3rem;
@@ -141,12 +122,11 @@ export default {
 }
 
 .delete:hover {
-    transition: 0.5s;
-    background-color: white ;
-    box-shadow: 0 0 10px white;
-    color: black;
+  transition: 0.5s;
+  background-color: white;
+  box-shadow: 0 0 10px white;
+  color: black;
 }
-
 
 .btns {
   display: flex;
@@ -180,11 +160,10 @@ td {
   color: white;
   border: 3px solid black;
   font-family: "Julius Sans One", sans-serif;
-
 }
 
 th {
-    color: white;
+  color: white;
   border: 3px solid black;
   font-family: "Julius Sans One", sans-serif;
 }
@@ -223,28 +202,30 @@ h1 {
 }
 
 @media only screen and (max-width: 768px) {
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
-    }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
 
-    h1 {
-      color: white;
-      font-size: 1.9rem;
-      border-left: 3px solid black;
-      font-family: "Monoton", cursive;
-    }
+  h1 {
+    color: white;
+    font-size: 1.9rem;
+    border-left: 3px solid black;
+    font-family: "Monoton", cursive;
+  }
 
-    .table-container,table {
-      overflow-x: auto;
-    }
+  .table-container,
+  table {
+    overflow-x: auto;
+  }
 
-
-    th, td {
-      padding: 0.5rem;
-    }
+  th,
+  td {
+    padding: 0.5rem;
+  }
 }
 </style>

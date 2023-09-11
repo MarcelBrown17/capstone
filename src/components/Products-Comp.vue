@@ -5,82 +5,47 @@
       <div class="sidebar">
         <h2>Sidebar</h2>
         <div class="navigation">
-    <div class="sort">
-      <label for="search">Sort by Price</label>
-      <select
-        name="sort"
-        id="sort"
-        v-model="selectedSort"
-        @change="sortProducts"
-      >
-        <option value="lowest" id="lowest">Lowest</option>
-        <option value="highest" id="highest">Highest</option>
-      </select>
-    </div>
-    <div class="search">
-      <div class="icon">
-        <img
-          src="https://i.postimg.cc/Qd5jtmBR/icons8-search-50-removebg-preview.png"
-          alt="icon"
-          class="icon"
-        />
-      </div>
-      <div class="search-bar">
-        <label for="search">Search</label>
-        <input
-          type="text"
-          class="type-s"
-          placeholder="Name of item"
-          v-model="searchInput"
-        />
-        <button type="submit" class="btn" @click="filterProducts()">
-          <img
-            src="https://i.postimg.cc/Qd5jtmBR/icons8-search-50-removebg-preview.png"
-            alt="search-img"
-            class="search-img"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-
+          <div class="sort">
+            <label for="search">Sort by Price</label>
+            <select name="sort" id="sort">
+              <option value="lowest" id="lowest">Lowest</option>
+              <option value="highest" id="highest">Highest</option>
+            </select>
+          </div>
+          <div class="search">
+            <!-- Search input and button -->
+          </div>
+        </div>
       </div>
       <div class="products-body">
-        <div class="product-cards" v-if="filteredProducts.length > 0">
+        <div class="product-cards">
           <div class="container">
             <ul class="cards">
-              <!-- Loop through your products and display each one using the card template -->
               <li
-              class="card"
-        v-for="product in products"
-        :key="product.prodID"
-        :product="product"
+                class="card"
+                v-for="product in products"
+                :key="product.prodID"
               >
                 <div>
-                  <img
-                    :src="product.prodUrl"
-                    alt="product.prodName"
-                    class="card-image"
-                  />
+                  <div class="image-container">
+                    <img
+                      :src="product.prodUrl"
+                      :alt="product.prodName"
+                      class="card-image"
+                    />
+                  </div>
                   <h3 class="card-title">{{ product.prodName }}</h3>
-                  <p class="card-price">$ {{ product.price }}</p>
+                  <p class="card-price">R {{ product.price }}</p>
+                  <p class="card-category">{{ product.Category }}</p>
                   <!-- Add rating display here -->
                 </div>
                 <div class="card-link-wrapper">
-                  <button class="view-btn">
-                    <router-link
-                      class="single"
-                      :to="{
-                        name: 'single-product',
-                        params: { id: product.prodID },
-                      }"
-                    >
-                      View More
-                    </router-link>
+                  <button class="view-btn" @click="viewProduct(product.prodID)">
+                    View More
                   </button>
                   <button
-                    @click="addToCart(product)"
                     class="add-to-cart-button"
+                    @click="addToCart(product)"
                   >
                     Add to Cart
                   </button>
@@ -89,77 +54,34 @@
             </ul>
           </div>
         </div>
-        <div v-else>
-          <spinner>
-          <p>Loading...</p>
-        </spinner>
-        </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-import axios from "axios";
-import spinner from "./SpinnerComp.vue";
-
 export default {
-  components: { spinner },
   data() {
     return {
       products: [],
-      searchInput: "",
-      cart: [],
     };
   },
+  computed: {
+    products() {
+      return this.$store.state.products;
+    },
+  },
   methods: {
-    async fetchProducts() {
-      try {
-        const response = await axios.get(
-          "https://envyessentials.onrender.com/products"
-        );
-        this.products = response.data.results;
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    },
-    addToCart(product) {
-      if (!this.cart) {
-        this.cart = [];
-      }
-
-      const existingItem = this.cart.find((item) => item.prodID === product.prodID);
-
-      if (existingItem) {
-        existingItem.quantity++;
-      } else {
-        this.cart.push({ ...product, quantity: 1 });
-      }
-      console.log('Product added to cart:', this.cart);
-    },
-    viewSingle(prodID) {
-      const singleProduct = this.products.find(
+    viewProduct(prodID) {
+      const selectedProduct = this.products.find(
         (product) => product.prodID === prodID
       );
-      this.$store.commit("setSingleProduct", singleProduct);
+      this.$store.commit("setSelectedProduct", selectedProduct);
       this.$router.push({ name: "single-product", params: { prodID: prodID } });
     },
   },
-  computed: {
-    filteredProducts() {
-      if (this.searchInput) {
-        return this.products.filter((product) =>
-          product.prodName
-            .toLowerCase()
-            .includes(this.searchInput.toLowerCase())
-        );
-      } else {
-        return this.products;
-      }
-    },
-  },
+
   mounted() {
-    this.fetchProducts();
+    this.$store.dispatch("fetchProducts");
   },
 };
 </script>
@@ -207,11 +129,10 @@ h2 {
     auto-fit,
     minmax(300px, 1fr)
   ); /* Create a grid with columns that adjust based on available space */
-  gap: 20px; /* Add some spacing between cards */
+  gap: 20px;
 }
 
 .card {
-  /* No specific width needed for each card; they'll automatically adjust within the grid */
   width: 100%;
   padding: 20px;
   border-radius: 12px;
@@ -220,8 +141,9 @@ h2 {
 }
 
 .card-image {
+  margin: auto;
   max-width: 100%;
-  height: auto;
+  height: 19rem;
 }
 
 .card-title {
@@ -232,9 +154,8 @@ h2 {
   font-size: 18px;
   margin-top: 5px;
 }
-
-.card-link {
-  background-color: #c70000;
+.card-category {
+  font-size: 18px;
 }
 
 .card:hover {
@@ -260,8 +181,9 @@ h2 {
   transition: background 0.2s;
 }
 
-.card-link:hover {
-  background-color: rgb(66, 66, 66);
+button:hover {
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
 }
 
 @media (min-width: 500px) {
@@ -276,9 +198,27 @@ h2 {
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 300px) {
   .card {
     flex-basis: calc(25% - 30px);
   }
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center content text horizontally */
+  padding: 20px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center; /* Center image horizontally */
+  align-items: center; /* Center image vertically */
+  margin-bottom: 10px;
+}
+.add-to-cart-button {
+  margin-left: 7px;
 }
 </style>
