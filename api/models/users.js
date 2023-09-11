@@ -1,3 +1,4 @@
+
 const db = require("../config");
 const { hash, compare } = require("bcrypt");
 const { createToken } = require("../middleware/authenticateUser");
@@ -5,6 +6,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const bcrypt = require("bcrypt");
 
 const app = express();
 app.use(cookieParser());
@@ -64,12 +66,13 @@ class Users {
           res.status(500).json({ error: 'Internal server error' });
         } else {
           const token = jwt.sign(
-            { userID: user.userID, emailAdd: user.emailAdd },
-            process.env.secret_key, 
+            { userID: results[0].userID, emailAdd: results[0].emailAdd },
+            process.env.secret_key,
             {
               expiresIn: '1h',
             }
           );
+          
   
           res.cookie('AuthorizedUser', token, {
             maxAge: 3600000,
@@ -112,7 +115,7 @@ class Users {
                 })
                 if(cResults){
                     res.json({
-                        msg: "Welcome to Watchtime",
+                        msg: "Welcome to Envy Essentials",
                         token,
                         results: results[0]
                     })
@@ -128,39 +131,27 @@ class Users {
 }
   
   
-async updateUser(req, res) {
-  const query = `UPDATE Users SET ? WHERE UserID = ?`;
-  const userID = req.params.id;
-  const userData = req.body;
+  async updateUser(req, res) {
+    const query = `
+        UPDATE Users 
+        SET ? 
+        WHERE userID = ?`;
 
-  try {
-    if (userData.userPass) {
-      userData.userPass = await bcrypt.hash(userData.userPass, 15);
-    }
+    const data = req.body;
 
-    for (const key in userData) {
-      if (userData[key] === undefined) {
-        delete userData[key];
-      }
-    }
+    // encrypt password
+    data.userPass = await bcrypt.hash(data.userPass, 20);
 
-    db.query(query, [userData, userID], (err) => {
-      if (err) {
-        console.error('Error updating user details:', err);
-        res.status(500).json({ error: 'Internal server error' });
-      } else {
-        res.json({
-          status: res.statusCode,
-          message: 'User details updated!',
-        });
-      }
+
+    db.query(query, [data, req.params.id], (err) => {
+      if (err) throw err;
+
+      res.json({
+        status: res.statusCode,
+        message: "Updated User Details",
+      });
     });
-  } catch (error) {
-    console.error('Error updating user details:', error);
-    res.status(500).json({ error: 'Internal server error' });
   }
-}
-
 
   deleteUser(req, res) {
     const query = `
