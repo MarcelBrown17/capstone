@@ -41,98 +41,30 @@ class Users {
     });
   }
 
+ 
   async register(req, res) {
     const data = req.body;
-
-    if (!data) {
-      return res.status(400).json({
-        status: 400,
-        message: "Request body is missing",
-      });
-    }
-
+  
     try {
-      // password encryption
-      const saltRounds = 10; // number of salt rounds
-      const hashedPassword = await hash(data.userPass, saltRounds);
-
-      // Replace the plain password with the hashed password
-      data.userPass = hashedPassword;
-
+      const saltRounds = 15;
+      const hashedPassword = await bcrypt.hash(data.UserPass, saltRounds);
+  
       const user = {
         firstName: data.firstName,
-        surName: data.lastName,
+        lastName: data.lastName,
+        userRole: data.userRole,
         emailAdd: data.emailAdd,
-        userPass: data.userPass,
-        userRole: data.userRole
+        userPass: hashedPassword
       };
-
-      const query = `
-            INSERT INTO Users 
-            SET ?;`;
-
-      db.query(query, [data], (err) => {
+  
+      const query = 'INSERT INTO Users SET ?';
+      db.query(query, user, (err) => {
         if (err) {
-          console.error(err);
-          return res.status(500).json({
-            status: 500,
-            message: "Internal Server Error",
-          });
+          console.error('Error inserting user:', err);
+          res.status(500).json({ error: 'Internal server error' });
         } else {
           const token = jwt.sign(
-            { userID: data.userID, email: data.emailAdd },
-            process.env.SECRET_KEY, // Make sure you have this in your .env file
-            {
-              expiresIn: "1h",
-            }
-          );
-
-          res.cookie("AuthorizedUser", token, {
-            maxAge: 3600000,
-            httpOnly: true,
-          });
-
-          res.status(201).json({
-            status: res.statusCode,
-            message: "New user registered!",
-          });
-        }
-      });
-    } catch (error) {
-      console.error("Error hashing password:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  }
-
-  async login(req, res) {
-    const { emailAdd, userPass } = req.body;
-  
-    try {
-      const query = `
-        SELECT userID, firstName, lastName, emailAdd, userPass
-        FROM Users
-        WHERE emailAdd = ?;
-      `;
-  
-      db.query(query, [emailAdd], async (err, result) => {
-        if (err) {
-          console.error('Error querying the database:', err);
-          return res.status(500).json({ error: 'Internal server error' });
-        }
-  
-        if (!result?.length) {
-          return res.status(401).json({
-            status: res.statusCode,
-            message: 'Incorrect email or password!',
-          });
-        }
-  
-        const user = result[0];
-        const isPasswordValid = await compare(userPass, user.userPass); // Use compare from bcrypt
-  
-        if (isPasswordValid) {
-          const token = jwt.sign(
-            { userID: user.userID, email: user.emailAdd },
+            { userID: user.userID, emailAdd: user.emailAdd },
             process.env.secret_key, 
             {
               expiresIn: '1h',
@@ -144,23 +76,57 @@ class Users {
             httpOnly: true,
           });
   
-          return res.status(200).json({
-            message: 'Welcome back to Envy Essentials!',
-            token,
-            user,
-          });
-        } else {
-          return res.status(401).json({
+          res.status(201).json({
             status: res.statusCode,
-            message: 'Incorrect email or password!',
+            message: 'New user registered!',
           });
         }
       });
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Error hashing password:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   }
+  
+   async login(req,res){
+    const {emailAdd, userPass} =
+    req.body
+    const query =
+    `
+    SELECT firstName , lastName, userRole , emailAdd , userPass FROM Users
+    WHERE email = '${email}';
+    `
+    db.query(query,async(err, results)=>{
+        if(err) throw err
+        if(!results?.length){
+            res.json({
+                status:res.statusCode,
+                msg : "You provided a wrong email."
+            })
+        }else{
+            await compare(userPass, results[0].userPass,(cErr,cResults)=>{
+                if(cErr) throw cErr
+                // Create a token
+                const token = createToken({
+                    emailAdd, userPass
+                })
+                if(cResults){
+                    res.json({
+                        msg: "Welcome to Watchtime",
+                        token,
+                        results: results[0]
+                    })
+                }else{
+                    res.json({
+                        status: res.statusCode,
+                        msg: "Invalid password or you have not registered"
+                    })
+                }
+            })
+        }
+    })
+}
+  
   
   updateUser(req, res) {
     const query = `
