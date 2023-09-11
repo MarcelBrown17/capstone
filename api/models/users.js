@@ -94,7 +94,7 @@ class Users {
     const query =
     `
     SELECT firstName , lastName, userRole , emailAdd , userPass FROM Users
-    WHERE email = '${email}';
+    WHERE emailAdd = '${emailAdd}';
     `
     db.query(query,async(err, results)=>{
         if(err) throw err
