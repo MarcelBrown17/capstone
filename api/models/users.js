@@ -128,26 +128,39 @@ class Users {
 }
   
   
-  updateUser(req, res) {
-    const query = `
-        UPDATE Users 
-        SET ? 
-        WHERE userID = ?`;
+async updateUser(req, res) {
+  const query = `UPDATE Users SET ? WHERE UserID = ?`;
+  const userID = req.params.id;
+  const userData = req.body;
 
-    const data = req.body;
+  try {
+    if (userData.userPass) {
+      userData.userPass = await bcrypt.hash(userData.userPass, 15);
+    }
 
-    // encrypt password
-    data.userPass = hash(data.userPass, 20); // Changed from hashSync
+    for (const key in userData) {
+      if (userData[key] === undefined) {
+        delete userData[key];
+      }
+    }
 
-    db.query(query, [data, req.params.id], (err) => {
-      if (err) throw err;
-
-      res.json({
-        status: res.statusCode,
-        message: "Updated User Details",
-      });
+    db.query(query, [userData, userID], (err) => {
+      if (err) {
+        console.error('Error updating user details:', err);
+        res.status(500).json({ error: 'Internal server error' });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: 'User details updated!',
+        });
+      }
     });
+  } catch (error) {
+    console.error('Error updating user details:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
+}
+
 
   deleteUser(req, res) {
     const query = `

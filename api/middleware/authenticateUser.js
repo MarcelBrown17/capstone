@@ -1,50 +1,46 @@
 const { sign, verify } = require("jsonwebtoken");
 require("dotenv").config();
 
-function createToken(user) {
-  return sign(
-    {
-      emailAdd: user.emailAdd,
-      userPass: user.userPass,
-    },
-    process.env.secret_key,
-    {
-      expiresIn: "1h",
-    }
-  );
+function createToken(user){
+  return sign({
+      emailAdd:user.emailAdd,
+      userPass:user.userPass
+  },
+  process.env.secret_key,
+  {
+      expiresIn:'1h'
+  }
+  )
 }
 
 function verifyAToken(req, res, next) {
   try {
     const token =
-      req.cookies && req.cookies["AuthorisedUser"]
-        ? req.cookies["AuthorisedUser"]
-        : null;
+      req.cookies["AuthorizedUser"] !== null
+        ? req.cookies["AuthorizedUser"]
+        : "User not registered.";
+
+    const isValid = null;
 
     if (!token) {
-      return res.json({
-        status: res.statusCode,
-        message: "Please register",
-      });
-    }
+      isValid = verify(token, process.env.secret_key);
 
-    const isValid = verify(token, process.env.SECRET_KEY);
-
-    if (isValid) {
-      req.authenticated = true;
-      return next();
-    } else {
-      return res.json({
-        status: res.statusCode,
-        message: "Token is not valid",
-      });
-    }
+      if (isValid) {
+        req.authenticated = true;
+        next();
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Please register!",
+        });
+      }
+    } 
   } catch (err) {
-    return res.json({
+    res.json({
       status: res.statusCode,
       message: err.message,
     });
   }
 }
 
-module.exports = { createToken, verifyAToken };
+module.exports = {createToken,  verifyAToken };
