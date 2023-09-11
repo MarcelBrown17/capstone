@@ -105,7 +105,7 @@ class Users {
   }
 
   async login(req, res) {
-    const { email, userPass } = req.body;
+    const { emailAdd, userPass } = req.body;
   
     try {
       const query = `
@@ -114,7 +114,7 @@ class Users {
         WHERE emailAdd = ?;
       `;
   
-      db.query(query, [email], async (err, result) => {
+      db.query(query, [emailAdd], async (err, result) => {
         if (err) {
           console.error('Error querying the database:', err);
           return res.status(500).json({ error: 'Internal server error' });
