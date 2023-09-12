@@ -16,7 +16,7 @@ class Products{
 
    fetchProduct(req, res) {
     const productId = req.params.id;
-    const query = `SELECT ProdID, ProdName, Price, quantity, ProdUrl, Brand, category FROM Products WHERE ProdID = ?;`;
+     const query = `SELECT prodID, prodName, Category, price, quantity, prodUrl, imageUrl2, imageUrl3, imageUrl4 FROM Products;`;
 
     db.query(query, [productId], (err, result) => {
       if (err) {
