@@ -6,7 +6,7 @@ class Cart {
       SELECT prodName, price, prodUrl FROM Users 
       INNER JOIN Orders ON Users.userID = Orders.userID
       INNER JOIN Products ON Orders.productID = Products.prodID
-      WHERE Orders.userID = ?;`;
+      WHERE Orders.userID = ${req.params.id};`;
 
     db.query(query, [req.params.id], (err, results) => {
       if (err) {

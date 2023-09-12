@@ -13,31 +13,30 @@ class Products{
             });
         });
     }
-fetchProduct(req, res) {
-  const productId = req.params.id;
-  const query = `SELECT prodID, prodName, Category, price, quantity, prodUrl, imageUrl2, imageUrl3, imageUrl4 FROM Products WHERE prodID = ?;`;
 
-  db.query(query, [productId], (err, result) => {
-    if (err) {
-      console.error('Error executing database query:', err);
-      return res.status(500).json({ error: 'An error occurred while fetching the product' });
-    }
-
-    if (result.length === 0) {
-      return res.status(404).json({
-        status: res.statusCode,
-        message: 'Product not found',
+    fetchProduct(req, res) {
+      const productId = req.params.id;
+      const query = `SELECT ProdID, ProdName, Price, quantity, ProdUrl, Brand, category FROM Products WHERE ProdID = ?;`;
+  
+      db.query(query, [productId], (err, result) => {
+        if (err) {
+          console.error('Error executing database query:', err);
+          return res.status(500).json({ error: 'An error occurred while fetching the product' });
+        }
+  
+        if (result.length === 0) {
+          return res.status(404).json({
+            status: res.statusCode,
+            message: 'Product not found',
+          });
+        }
+  
+        res.json({
+          status: res.statusCode,
+          result: result[0],
+        });
       });
     }
-
-    res.json({
-      status: res.statusCode,
-      result: result[0],
-    });
-  });
-}
-
-
     addProduct(req, res) {
         const query = `
         INSERT INTO Products 

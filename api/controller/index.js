@@ -41,7 +41,7 @@ routes.get('/products', (req, res) => {
     products.fetchProducts(req, res)
 });
 
-routes.get('/product/:id', (req, res) => {
+routes.get('/products/:id', (req, res) => {
     products.fetchProduct(req, res)
 });
 
@@ -66,22 +66,22 @@ bodyParser.json(), (req, res) => {
 });
 
 // Fetch cart for a user
-routes.get('/cart/:id', (req, res) => {
+routes.get('/user/:id/carts', (req, res) => {
   cart.fetchCart(req, res);
 });
 
 // Add a product to the cart
-routes.post('/cart', (req, res) => {
+routes.post('/user/:id/cart', (req, res) => {
   cart.addToCart(req, res);
 });
 
 // Update a product in the cart
-routes.put('/cart/:id', (req, res) => {
+routes.put('/user/:id/cart/:id', (req, res) => {
   cart.updateCart(req, res);
 });
 
 // Delete a product from the cart
-routes.delete('/cart/:id', (req, res) => {
+routes.delete('/user/:id/cart', (req, res) => {
   cart.deleteCart(req, res);
 });
 
