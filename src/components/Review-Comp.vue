@@ -5,28 +5,30 @@
 		<div class="mainSlider">
 			<div class="content">
 				<div class="img-area"><img alt="" src="https://images.pexels.com/photos/1317712/pexels-photo-1317712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"></div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, nisi, eius. Consequatur, et eum fuga debitis, incidunt quia!</p>
-				<h2>Someone Famous 1</h2>
+				<p>I had an amazing experience at this formal wear store. The staff went above and beyond to help me find the perfect suit for an upcoming event. Their attention to detail and personalized recommendations made the shopping process enjoyable and stress-free.</p>
+				<h2>Rowan November</h2>
 			</div>
 			<div class="content">
 				<div class="img-area"><img alt="" src="https://images.pexels.com/photos/2269872/pexels-photo-2269872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"></div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, nisi, eius. Consequatur, et eum fuga debitis, incidunt quia!</p>
-				<h2>Someone Famous 2</h2>
+				<p>This store offers a remarkable selection of high-quality formal wear. I was impressed by the variety of styles, colors, and sizes available. Whether you're looking for a classic tuxedo or a modern suit, they have you covered.
+
+</p>
+				<h2>Zubair Matthee</h2>
 			</div>
 			<div class="content">
 				<div class="img-area"><img alt="" src="https://images.pexels.com/photos/3190334/pexels-photo-3190334.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"></div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, nisi, eius. Consequatur, et eum fuga debitis, incidunt quia!</p>
-				<h2>Someone Famous 3</h2>
+				<p>What sets this store apart is their exceptional tailoring service. They ensured that my suit fit me like a glove. The tailors are skilled professionals who take pride in their work, resulting in a perfectly tailored outfit that received countless compliments.</p>
+				<h2>Codi Jacobs</h2>
 			</div>
 			<div class="content">
 				<div class="img-area"><img alt="" src="https://images.pexels.com/photos/3525908/pexels-photo-3525908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"></div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, nisi, eius. Consequatur, et eum fuga debitis, incidunt quia!</p>
-				<h2>Someone Famous 4</h2>
+				<p>Despite the top-notch quality and service, the prices here are reasonable. I was pleasantly surprised by the affordability of their formal wear. You can look stylish and elegant without breaking the bank.</p>
+				<h2>Zavier Davids</h2>
 			</div>
 			<div class="content">
 				<div class="img-area"><img alt="" src="https://images.pexels.com/photos/9968247/pexels-photo-9968247.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"></div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, nisi, eius. Consequatur, et eum fuga debitis, incidunt quia!</p>
-				<h2>Someone Famous 5</h2>
+				<p>Shopping at this store was a breeze. They have a well-organized layout, making it easy to browse and find what you need. Plus, the checkout process was efficient, and I left with my purchase in no time. It's a one-stop shop for all your formal wear needs.</p>
+				<h2>Ronan Smith</h2>
 			</div>
 		</div>
 	</div>
@@ -56,7 +58,7 @@ html, body {
 
 .wrapper {
 	background: rgb(0, 0, 0);
-	height: 400px;
+	height: 550px;
 	position: relative;
 	overflow: hidden;
 	display: flex;
@@ -65,7 +67,7 @@ html, body {
 	align-items: flex-end;
 	-webkit-box-pack: center;
 	justify-content: center;
-	margin: 67px 0 0;
+	margin: 4rem 0 0;
 }
 .mainSlider {
 	position: absolute;

@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Monoton&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&family=PT+Serif:wght@700&family=Raleway&display=swap');
 
 .add-button {
   width: 5rem;

@@ -18,6 +18,7 @@ export default createStore({
     token: null,
     msg: null,
     add: null,
+    searchInput: "", 
   },
   getters: {},
   mutations: {
@@ -48,6 +49,10 @@ export default createStore({
     setAdd(state, data) {
       state.add = data;
     },
+    setSearchInput(state, searchInput) {
+      state.searchInput = searchInput;
+    },
+    
   },
   actions: {
         async fetchUsers(context) {
@@ -68,15 +73,17 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
-    async fetchProduct(context, ProdID) {
-      try {
-        const { data } = await axios.get(`${url}products/${ProdID}`);
-        context.commit("setProduct", data.results[0]);
+    async fetchProduct(context, prodID) {
+      try{
+        const {data} = await axios.get(`${url}product/${prodID}`)
+        context.commit("setProduct", data.results[0])
         console.log(data.results);
-      } catch (e) {
-        context.commit("setMsg", "An error occurred");
+      }catch(e){
+        context.commit("setMsg", "An error occurred")
       }
     },
+
+    
 
     async UserDeleted(context, userID) {
       try {
@@ -131,19 +138,15 @@ export default createStore({
             timer: 4000,
           });
           context.dispatch("fetchUsers");
-          router.push({ name: "login" });
+          router.push({ name: "/login" });
         } else {
-          swal({
-            title: "Error",
-            text: msg,
-            icon: "error",
-            timer: 4000,
-          });
+          router.push('/login')
         }
+        
       } catch (e) {
-        context.commit("setMsg", "An error has occured");
+        context.commit("setMsg", "An error has occured")
       }
-    },
+      },
     //login
     async login(context, payload) {
       try {
@@ -177,6 +180,11 @@ export default createStore({
       context.commit("setUser");
       cookies.remove("MannUser");
     },
+    setSearchInput({ commit }, searchInput) {
+      commit("setSearchInput", searchInput);
+    },
   },
   modules: {},
 });
+
+

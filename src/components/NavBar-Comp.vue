@@ -3,7 +3,14 @@
     <div class="nav-container">
       <nav class="navbar navbar-dark bg-black fixed-top p-4">
         <div class="container-fluid">
-          <h1 class="navbar-brand">Marcel Brown</h1>
+          <div class="navbar-brand">
+            <img
+              src="https://i.postimg.cc/pr7ydDZp/Screenshot-2023-09-12-111142.png"
+              class="logo"
+            />
+            <h1 class="navbar-brand1">Envy Essentials</h1>
+          </div>
+
           <button
             class="navbar-toggler"
             type="button"
@@ -70,5 +77,19 @@ export default {};
 </script>
 
 <style scoped>
-
+.logo {
+  height: 4rem;
+  width: 4rem;
+  float: left;
+}
+.navbar-brand {
+  display: flex;
+  text-align: left !important;
+  float: left;
+  gap: 3px;
+  align-items: center !important;
+}
+.navbar-brand1 {
+  padding-left: 1.5rem;
+}
 </style>

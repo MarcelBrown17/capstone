@@ -1,10 +1,21 @@
 <template>
-  <div>
     <h1>Products</h1>
     <div class="flexed-display">
+      <!-- Sidebar starts here -->
       <div class="sidebar">
         <h2>Sidebar</h2>
         <div class="navigation">
+          <div class="search-bar">
+        <label for="search">Search</label>
+        <input
+          type="text"
+          class="type-s"
+          placeholder="Name of item"
+          v-model="searchInput"
+        />
+        <button type="submit" class="btn" @click="filterProducts()">
+        </button>
+      </div>
           <div class="sort">
             <label for="search">Sort by Price</label>
             <select name="sort" id="sort">
@@ -12,10 +23,22 @@
               <option value="highest" id="highest">Highest</option>
             </select>
           </div>
-          <div class="search">
-            <!-- Search input and button -->
+          <div class="sort">
+            <label for="search">Sort Alphabetically</label>
+            <select name="sort" id="sort">
+              <option value="lowest" id="lowest">A-Z</option>
+              <option value="highest" id="highest">Z-A</option>
+            </select>
           </div>
+<div class="Categories">
+  <p>Pants</p>
+  <p>Golfer</p>
+  <p>Shirt</p>
+  <p>Jacket</p>
+  <p>Dress</p>
+</div>
         </div>
+        <!-- Sidebar ends here-->
       </div>
       <div class="products-body">
         <div class="product-cards">
@@ -40,9 +63,24 @@
                   <!-- Add rating display here -->
                 </div>
                 <div class="card-link-wrapper">
-                  <button class="view-btn" @click="viewProduct(product.prodID)">
-                    View More
-                  </button>
+                  
+                <router-link
+                  class="text-black" id="view-more"
+                  :to="{
+                    name: 'product',
+                    params: { prodID: product.prodID },
+                    query: {
+                      prodName: product.prodName,
+                      price: product.price,
+                      Category: product.Category,
+                      prodUrl: product.prodUrl,
+                    }
+                  }"
+                ><button class="view-more">
+                  View More
+                </button>
+                </router-link>
+             
                   <button
                     class="add-to-cart-button"
                     @click="addToCart(product)"
@@ -56,13 +94,13 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 <script>
 export default {
   data() {
     return {
       products: [],
+
     };
   },
   computed: {
@@ -70,16 +108,6 @@ export default {
       return this.$store.state.products;
     },
   },
-  methods: {
-    viewProduct(prodID) {
-      const selectedProduct = this.products.find(
-        (product) => product.prodID === prodID
-      );
-      this.$store.commit("setSelectedProduct", selectedProduct);
-      this.$router.push({ name: "single-product", params: { prodID: prodID } });
-    },
-  },
-
   mounted() {
     this.$store.dispatch("fetchProducts");
   },
@@ -89,9 +117,10 @@ export default {
 <style scoped>
 body {
   background-color: #ffffff;
+  min-height:100vh;
 }
 h1 {
-  margin-top: 6rem;
+  margin-top: 8rem;
   margin-left: 2rem;
   color: #000000;
 }
@@ -159,8 +188,7 @@ h2 {
 }
 
 .card:hover {
-  color: var(--white);
-  background: var(--red);
+  transform: scaleX(1.1);
 }
 
 .card .card-title {
@@ -171,7 +199,7 @@ h2 {
   margin: 20px 0;
 }
 
-.card .card-link {
+.card .card-link-wrapper {
   display: inline-block;
   text-decoration: none;
   color: rgb(0, 0, 0);
@@ -181,10 +209,11 @@ h2 {
   transition: background 0.2s;
 }
 
-button:hover {
+.card button:hover {
   background-color: rgb(0, 0, 0);
   color: #ffffff;
 }
+
 
 @media (min-width: 500px) {
   .card {
@@ -220,5 +249,8 @@ button:hover {
 }
 .add-to-cart-button {
   margin-left: 7px;
+}
+#view-more {
+text-decoration: none;
 }
 </style>

@@ -1,101 +1,129 @@
 <template>
-  <div class="single-product">
-    <h1>{{ selectedProduct.prodName }}</h1>
-    <div class="product-details">
-      <div class="product-image">
-        <img :src="selectedProduct.prodUrl" :alt="selectedProduct.prodName" />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 image-container">
+        <img :src="$route.query.prodUrl" class="product-image" alt="Product Image" />
       </div>
-      <div class="product-info">
-        <p><strong>Price:</strong> R {{ selectedProduct.price }}</p>
-        <p><strong>Category:</strong> {{ selectedProduct.Category }}</p>
-        <!-- Add other product details here -->
-        <button @click="addToCart(selectedProduct)">Add to Cart</button>
+      <div class="col-md-6 details-container">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ $route.query.prodName }}</h5>
+            <p class="card-text">
+              <span>{{ $route.query.Category }}</span>
+            </p>
+            <p class="card-text">
+              <span>R{{ $route.query.price }}</span>
+            </p>
+          </div>
+          <div class="card-footer text-body-secondary">
+            <router-link to="/products" class="btn">Back</router-link>
+            <router-link to="/checkout" class="btn">Add To Cart</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- New row for other image queries -->
+    <div class="row">
+      <div class="col-md-6">
+        <img :src="$route.query.imageUrl2" class="product-image" alt="prodImage" />
+      </div>
+      <div class="col-md-6">
+        <img :src="$route.query.imageUrl3" class="product-image" alt="prodImage" />
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
-export default {
-  computed: {
-    selectedProduct() {
-      return this.$store.state.selectedProduct;
-    },
+ export default {
+computed: {
+  product() {
+    return this.$store.state.product;
   },
-  methods: {
-    addToCart(product) {
-      // Implement your cart logic here
-      // You can dispatch an action to add the product to the cart in your Vuex store
-    },
-  },
+},
+mounted() {
+  this.$store.dispatch('fetchProduct', this.$route.params.prodID);
+  console.log('Fetching product data');
+},
 };
 </script>
 
-<style scoped>
-/* Add your CSS styles for the single product view here */
-.product-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.product-image img {
-  max-width: 100%;
-  max-height: 100%;
-}
-</style>
 
 <style scoped>
-body {
-  min-height: 100vh;
-  margin-top: 20rem !important;
-}
+
+
 .container {
-  margin-top: 20rem;
+  margin-top: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-right:17rem;
+  margin-bottom:4rem;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .card {
-  margin-top: 10rem;
   color: black;
   width: 30rem;
-  height: 20rem;
+  height: auto;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
-}
-.card-img {
-  flex: 1;
-  padding: 1rem;
-}
-.product-image{
-  height: 10rem;
-  width: 10rem;
-}
-.example-img {
-  max-width: 100%;
-  max-height: 100%;
-}
-.card-info {
-  flex: 2;
-  padding: 1rem;
-  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center; /* Center align card contents horizontally */
+  text-align: center; /* Center align text inside the card */
 }
-.name {
+
+.card-title {
   margin-bottom: 1rem;
 }
-.price {
+
+.card-text span {
+  display: block;
   margin-bottom: 1rem;
 }
-.cart-btn {
-  background-color: #007bff;
+
+.product-image {
+  height: 20rem;
+  width: 20rem;
+  object-fit: cover; /* Ensure the image fills the container */
+}
+
+.card-footer {
+  margin-top: 1rem;
+}
+
+.btn {
+  background-color: #007BFF;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 4px;
+  text-decoration: none; /* Remove underline from router-link */
 }
-.cart-btn:hover {
-  background-color: #0056b3;
+
+.btn:hover {
+  background-color: #0056B3;
 }
 </style>
+
+
+

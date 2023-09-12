@@ -10,7 +10,7 @@
           />
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <form method="post">
+          <form method="post" @submit.prevent="login">
             <div class="form-outline mb-4">
               <input
                 type="email"
@@ -38,7 +38,7 @@
             <!-- Submit button -->
             <button
               type="button"
-              @click.prevent="login"
+              
               class="btn btn-primary btn-lg btn-block"
             >
               Sign in
@@ -68,6 +68,7 @@ export default {
     login() {
       console.log("Well done");
       this.$store.dispatch("login", this.payload);
+      console.log("Here is suma an error")
     },
   },
   beforeCreate() {
