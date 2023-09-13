@@ -151,6 +151,7 @@ export default createStore({
         ).data;
         if (results) {
           context.commit("setUser", { results, msg });
+ localStorage.setItem("user", JSON.stringify(results))
           cookies.set("MannUser", { msg, token, results });
           authenticateUser.applyToken(token);
           swal({
@@ -174,10 +175,20 @@ export default createStore({
     },
     LogOut(context) {
       context.commit("setUser");
+      localStorage.removeItem("user");
       cookies.remove("MannUser");
     },
-    setSearchInput({ commit }, searchInput) {
-      commit("setSearchInput", searchInput);
+ async saveEdit(context, edit) {
+      try {
+        const { data } = await axios.patch(
+          `${url}products/${edit.prodID}`,
+          edit
+        );
+        context.commit("setProduct", data.results);
+        console.log("Product updated successfully:", data.results);
+      } catch (e) {
+        console.error("Error updating product:", e);
+      }
     },
   },
   modules: {},
