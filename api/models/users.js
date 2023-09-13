@@ -114,7 +114,7 @@ async login(req, res) {
         if (cResults) {
           const token = createToken({
             emailAdd,
-            userPass,
+            userPass
           });
 
           res.json({
