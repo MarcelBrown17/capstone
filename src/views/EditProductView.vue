@@ -7,12 +7,11 @@
         ><button class="button">Back</button></router-link
       >
       <form @submit.prevent="editProduct" class="edit-form">
-        <input type="text" v-model="edit.ProdName" placeholder="Name" />
+        <input type="text" v-model="edit.prodName" placeholder="Name" />
         <input type="number" v-model="edit.quantity" placeholder="Quantity" />
-        <input type="number" v-model="edit.Price" placeholder="Amount" />
-        <input type="text" v-model="edit.category" placeholder="Category" />
-        <input type="text" v-model="edit.Brand" placeholder="Brand" />
-        <input type="text" v-model="edit.ProdUrl" placeholder="Image URL" />
+        <input type="number" v-model="edit.price" placeholder="Amount" />
+        <input type="text" v-model="edit.Category" placeholder="Category" />
+        <input type="text" v-model="edit.prodUrl" placeholder="Image URL" />
         <button type="submit" class="btn">Save</button>
       </form>
     </div>
@@ -22,23 +21,22 @@
 </template>
 
 <script>
-import NavBar from '../components/Navbar-comp.vue'
-import Footer from '../components/footer-comp.vue'
+import NavBarComp from '../components/Navbar-Comp.vue'
+import FooterComp from '../components/Footer-Comp.vue'
 export default {
   components: {
-    NavBar,
-    Footer
+    NavBarComp,
+    FooterComp
   },
   data() {
     return {
       edit: {
         prodID: this.id,
-        ProdName: "",
+        prodName: "",
         quantity: "",
-        Price: "",
-        Brand:"",
-        category: "",
-        ProdUrl: ""
+        price: "",
+        Category: "",
+        prodUrl: ""
       },
     };
   },
@@ -59,8 +57,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Monoton&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cinzel&display=swap");
 
 .h1 {
   color: #ffffff;
