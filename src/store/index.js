@@ -18,7 +18,7 @@ export default createStore({
     token: null,
     msg: null,
     add: null,
-    searchInput: "", 
+    searchInput: "",
   },
   getters: {},
   mutations: {
@@ -52,18 +52,17 @@ export default createStore({
     setSearchInput(state, searchInput) {
       state.searchInput = searchInput;
     },
-    
   },
   actions: {
-        async fetchUsers(context) {
-          try {
-            const { data } = await axios.get(`${url}users`);
-            context.commit("setUsers", data.results);
-          } catch (e) {
-            context.commit("setMsg", "An error occurred");
-          }
-        },
-    
+    async fetchUsers(context) {
+      try {
+        const { data } = await axios.get(`${url}users`);
+        context.commit("setUsers", data.results);
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
+      }
+    },
+
     async fetchProducts(context) {
       try {
         const { data } = await axios.get(`${url}products`);
@@ -74,16 +73,14 @@ export default createStore({
       }
     },
     async fetchProduct(context, prodID) {
-      try{
-        const {data} = await axios.get(`${url}product/${prodID}`)
-        context.commit("setProduct", data.results[0])
+      try {
+        const { data } = await axios.get(`${url}products/${prodID}`);
+        context.commit("setProduct", data.results[0]);
         console.log(data.results);
-      }catch(e){
-        context.commit("setMsg", "An error occurred")
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
       }
     },
-
-    
 
     async UserDeleted(context, userID) {
       try {
@@ -140,13 +137,12 @@ export default createStore({
           context.dispatch("fetchUsers");
           router.push({ name: "/login" });
         } else {
-          router.push('/login')
+          router.push("/login");
         }
-        
       } catch (e) {
-        context.commit("setMsg", "An error has occured")
+        context.commit("setMsg", "An error has occured");
       }
-      },
+    },
     //login
     async login(context, payload) {
       try {
@@ -163,7 +159,7 @@ export default createStore({
             icon: "success",
             timer: 4000,
           });
-          router.push({ name: "home" });
+          router.push({ name: "/home"})
         } else {
           swal({
             title: "Error",
@@ -186,5 +182,3 @@ export default createStore({
   },
   modules: {},
 });
-
-

@@ -1,47 +1,48 @@
 <template>
-    <h1>Products</h1>
-    <div class="flexed-display">
-      <!-- Sidebar starts here -->
-      <div class="sidebar">
-        <h2>Sidebar</h2>
-        <div class="navigation">
-          <div class="search-bar">
-        <label for="search">Search</label>
-        <input
-          type="text"
-          class="type-s"
-          placeholder="Name of item"
-          v-model="searchInput"
-        />
-        <button type="submit" class="btn" @click="filterProducts()">
-        </button>
-      </div>
-          <div class="sort">
-            <label for="search">Sort by Price</label>
-            <select name="sort" id="sort">
-              <option value="lowest" id="lowest">Lowest</option>
-              <option value="highest" id="highest">Highest</option>
-            </select>
-          </div>
-          <div class="sort">
-            <label for="search">Sort Alphabetically</label>
-            <select name="sort" id="sort">
-              <option value="lowest" id="lowest">A-Z</option>
-              <option value="highest" id="highest">Z-A</option>
-            </select>
-          </div>
-<div class="Categories">
-  <p>Pants</p>
-  <p>Golfer</p>
-  <p>Shirt</p>
-  <p>Jacket</p>
-  <p>Dress</p>
-</div>
+  <h1>Products</h1>
+  <div class="flexed-display">
+    <!-- Sidebar starts here -->
+    <div class="sidebar">
+      <h2>Filter</h2>
+      <div class="navigation">
+        <div class="search-bar mb-0 p-0">
+          <label for="search">Search</label>
+          <input
+            type="text"
+            class="type-s"
+            placeholder="Name of item"
+            v-model="searchInput"
+          />
+          <button type="submit" class="btn" @click="filterProducts()"></button>
         </div>
-        <!-- Sidebar ends here-->
+        <div class="sort mt-0 pt-0">
+          <label for="search">Sort by Price</label>
+          <select name="sort" id="sort">
+            <option value="lowest" id="lowest">Lowest</option>
+            <option value="highest" id="highest">Highest</option>
+          </select>
+        </div>
+        <div class="sort">
+          <label for="search">Sort Alphabetically</label>
+          <select name="sort" id="sort">
+            <option value="lowest" id="lowest">A-Z</option>
+            <option value="highest" id="highest">Z-A</option>
+          </select>
+        </div>
+        <div class="Categories">
+          <h2>Categories</h2>
+          <p>Pants</p>
+          <p>Golfer</p>
+          <p>Shirt</p>
+          <p>Jacket</p>
+          <p>Dress</p>
+        </div>
       </div>
-      <div class="products-body">
-        <div class="product-cards">
+      <!-- Sidebar ends here-->
+    </div>
+    <div class="products-body">
+      <div class="product-cards">
+        <div>
           <div class="container">
             <ul class="cards">
               <li
@@ -63,24 +64,27 @@
                   <!-- Add rating display here -->
                 </div>
                 <div class="card-link-wrapper">
-                  
-                <router-link
-                  class="text-black" id="view-more"
-                  :to="{
-                    name: 'product',
-                    params: { prodID: product.prodID },
-                    query: {
-                      prodName: product.prodName,
-                      price: product.price,
-                      Category: product.Category,
-                      prodUrl: product.prodUrl,
-                    }
-                  }"
-                ><button class="view-more">
-                  View More
-                </button>
-                </router-link>
-             
+                  <router-link
+                    class="text-black"
+                    id="view-more"
+                    :to="{
+                      name: 'product',
+                      params: { prodID: product.prodID },
+                      query: {
+                        prodName: product.prodName,
+                        price: product.price,
+                        Category: product.Category,
+                        prodUrl: product.prodUrl,
+                        imageUrl2: product.imageUrl2,
+                        imageUrl3: product.imageUrl3,
+                        imageUrl4: product.imageUrl4,
+
+                        // Add more pics
+                      },
+                    }"
+                    ><button class="view-more">View More</button>
+                  </router-link>
+
                   <button
                     class="add-to-cart-button"
                     @click="addToCart(product)"
@@ -94,13 +98,13 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
       products: [],
-
     };
   },
   computed: {
@@ -117,13 +121,23 @@ export default {
 <style scoped>
 body {
   background-color: #ffffff;
-  min-height:100vh;
+  min-height: 100vh;
 }
 h1 {
   margin-top: 8rem;
   margin-left: 2rem;
   color: #000000;
 }
+.search-bar {
+  margin-bottom: -1rem !important;
+}
+input {
+  border: 1px solid black;
+}
+select {
+  border: 1px solid black;
+}
+
 .flexed-display {
   display: flex;
   margin-top: 1.5rem;
@@ -137,11 +151,38 @@ h1 {
   margin-left: 2rem;
   border-radius: 10px;
   border: 5px solid black;
+  display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+  justify-content: flex-start; /* Align children at the top */
 }
 
 h2 {
   font-size: 32px;
   margin-bottom: 1rem;
+  align-self: center; /* Center the heading horizontally within the sidebar */
+}
+
+label {
+  margin-right: 6px !important;
+}
+.navigation {
+  flex-grow: 1; /* Allow the navigation section to grow and occupy available space */
+}
+
+.search-bar,
+.sort,
+.Categories {
+  margin-bottom: 0.5rem;
+}
+
+label {
+  font-size: 18px;
+}
+
+.Categories p {
+  margin: 0;
+  padding: 0;
+  font-size: 19px;
 }
 
 .cards {
@@ -214,7 +255,6 @@ h2 {
   color: #ffffff;
 }
 
-
 @media (min-width: 500px) {
   .card {
     flex-basis: calc(50% - 10px);
@@ -251,6 +291,6 @@ h2 {
   margin-left: 7px;
 }
 #view-more {
-text-decoration: none;
+  text-decoration: none;
 }
 </style>

@@ -56,7 +56,7 @@
             Navigation
           </h6>
           <p>
-          <router-link to="home" class="
+          <router-link to="/" class="
           link">Home</router-link>
           </p>
           <p>

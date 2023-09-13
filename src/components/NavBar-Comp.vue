@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="nav-container">
-      <nav class="navbar navbar-dark bg-black fixed-top p-4">
+      <nav class="navbar navbar-dark bg-black fixed-top p-3">
         <div class="container-fluid">
           <div class="navbar-brand">
             <img
@@ -86,7 +86,6 @@ export default {};
   display: flex;
   text-align: left !important;
   float: left;
-  gap: 3px;
   align-items: center !important;
 }
 .navbar-brand1 {

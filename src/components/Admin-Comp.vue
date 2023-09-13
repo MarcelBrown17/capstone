@@ -1,53 +1,61 @@
 <template>
   <div>
-    <div class="btns">
-      <Modal />
+    <div class="top">
       <h1 class="hh1">Products</h1>
+      <Modal />
     </div>
     <div class="table-container">
       <table class="responsive-table">
+        
         <thead>
-          <tr>
+          <tr class="table-header">
             <th>Product ID</th>
             <th>Product URL</th>
             <th>Product Name</th>
             <th>Quantity</th>
-            <th>Amount</th>
+            <th>Price</th>
             <th>Category</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="tbody">
           <tr v-for="product in products" :key="product.prodID">
-            <td>{{ product.prodID }}</td>
-            <td>
-              <img :src="product.prodUrl" :alt="product.prodName" class="img" />
+            <td class="product">{{ product.prodID }}</td>
+            <td class="product">
+              <img
+                :src="product.prodUrl"
+                :alt="product.prodName"
+                class="img"
+                id="product"
+              />
             </td>
-            <td>{{ product.prodName }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>R {{ product.price }}</td>
-            <td>{{ product.Category }}</td>
-            <td>
+            <td class="product">{{ product.prodName }}</td>
+            <td class="product">{{ product.quantity }}</td>
+            <td class="product">R {{ product.price }}</td>
+            <td class="product">{{ product.Category }}</td>
+            <td class="buttons">
               <div class="btns">
                 <button @click="deleteProduct(product.prodID)" class="delete">
                   Delete
                 </button>
-                <router-link
+               <button class="edit"> <router-link
                   :to="`/edit-product/${product.prodID}`"
-                  class="delete"
+                  class="editlink"
                 >
                   Edit
-                </router-link>
+                </router-link></button>
               </div>
             </td>
           </tr>
+      
         </tbody>
       </table>
     </div>
   </div>
   <div class="users">
     <h1 class="hh1">Users</h1>
-    <table>
+    <table class="user-table">
+   
       <thead>
         <tr>
           <th>User ID</th>
@@ -57,17 +65,38 @@
           <th>User Role</th>
           <th>Email</th>
           <th>User Profile</th>
+          <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="user-body">
         <tr v-for="user in users" :key="user.userID">
-          <td>{{ user.userID }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.userPass }}</td>
-          <td>{{ user.userRole }}</td>
-          <td>{{ user.emailAdd }}</td>
-          <td>{{ user.userImage }}</td>
+          <td class="user">{{ user.userID }}</td>
+          <td class="user">{{ user.firstName }}</td>
+          <td class="user">{{ user.lastName }}</td>
+          <td class="user">{{ user.userPass }}</td>
+          <td class="user">{{ user.userRole }}</td>
+          <td class="user">{{ user.emailAdd }}</td>
+          <td class="user">
+            <img
+              :src="user.userImage"
+              :alt="user.firstName"
+              class="img"
+              id="user"
+            />
+          </td>
+          <td class="buttons">
+              <div class="btns">
+                <button @click="UserDeleted(user.userID)" class="delete">
+                  Delete
+                </button>
+               <button class="edit"> <router-link
+                  :to="`/edit-user/${user.userID}`"
+                  class="editlink"
+                >
+                  Edit
+                </router-link></button>
+              </div>
+            </td>
         </tr>
       </tbody>
     </table>
@@ -76,10 +105,11 @@
 
 <script>
 import Modal from "@/components/add-modal-comp.vue";
-
+import spinner from "./SpinnerComp.vue";
 export default {
   components: {
     Modal,
+    spinner, 
   },
   data() {
     return {
@@ -111,14 +141,27 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Monoton&display=swap");
-
+.edit {
+  width: 5rem;
+  background-color: black;
+  color: rgb(255, 245, 245);
+  height: 3rem;
+  margin: auto;
+  text-align: center;
+  text-decoration: none;
+}
+.editlink {
+ color: white;
+  text-decoration: none;
+}
 .delete {
   width: 5rem;
   background-color: black;
-  color: white;
+  color: rgb(255, 245, 245);
   height: 3rem;
-  font-family: "Julius Sans One", sans-serif;
+  margin: auto;
+  text-align: center;
+  text-decoration: none;
 }
 
 .delete:hover {
@@ -127,78 +170,76 @@ export default {
   box-shadow: 0 0 10px white;
   color: black;
 }
-
-.btns {
-  display: flex;
-  flex-direction: column;
+.edit:hover {
+  transition: 0.5s;
+  background-color: white;
+  box-shadow: 0 0 10px white;
+  color: black !important;
 }
+.editlink:hover {
+  color: black;
+}
+
 .img {
-  width: 5rem;
-  height: 5rem;
+  width: 9rem;
+  height: 9rem;
 }
 
 .hh1 {
   color: black;
 }
-
-table {
-  width: 100%;
+.product {
+  justify-content: center !important;
+  align-content: center !important;
+  text-align: center;
 }
-.table {
-  margin-top: 50px;
-  border: 3px solid black;
-  width: 100%;
+.responsive-table {
+  width: 90%;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
 }
 
 tr {
-  background-color: black;
-  border: 3px solid black;
+  background-color: rgb(255, 255, 255);
+  border: 3px solid rgb(0, 0, 0);
   width: 100%;
 }
 
 td {
-  color: white;
-  border: 3px solid black;
+  color: rgb(0, 0, 0);
+  border: 3px solid rgb(0, 0, 0);
   font-family: "Julius Sans One", sans-serif;
 }
 
 th {
-  color: white;
+  color: rgb(0, 0, 0);
   border: 3px solid black;
   font-family: "Julius Sans One", sans-serif;
 }
 
-.hero {
-  background-color: rgb(0, 0, 0);
-  width: 100%;
-  height: 40rem;
-}
-
-.hero-info {
-  position: relative;
-  top: 35%;
-}
-
 h1 {
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 3rem;
-  border-left: 3px solid black;
-  font-family: "Monoton", cursive;
+}
+.btns {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: auto;
+ 
+}
+.top{
+  margin-top: 3rem;
+  margin-left: 5rem;
+  padding-bottom: 2rem;
 }
 
-.yokohama {
-  color: rgba(179, 16, 16, 0.9);
-}
-
-.sub-text {
-  color: rgb(255, 255, 255);
-  font-size: 1.3rem;
-  font-family: "Julius Sans One", sans-serif;
-}
-
-.red {
-  color: rgb(255, 0, 0);
-  font-weight: 700;
+.user-table {
+  width: 90%;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
 }
 
 @media only screen and (max-width: 768px) {
@@ -215,7 +256,6 @@ h1 {
     color: white;
     font-size: 1.9rem;
     border-left: 3px solid black;
-    font-family: "Monoton", cursive;
   }
 
   .table-container,
@@ -227,5 +267,9 @@ h1 {
   td {
     padding: 0.5rem;
   }
+  .btns{
+    margin-left: 4rem !important;
+  }
+  
 }
 </style>
