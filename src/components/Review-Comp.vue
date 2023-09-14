@@ -68,6 +68,7 @@ html, body {
 	-webkit-box-pack: center;
 	justify-content: center;
 	margin: 4rem 0 0;
+	margin-bottom: 4rem;
 }
 .mainSlider {
 	position: absolute;

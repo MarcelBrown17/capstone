@@ -117,8 +117,6 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&family=PT+Serif:wght@700&family=Raleway&display=swap');
-
 .add-button {
   width: 5rem;
   background-color: black;
@@ -149,13 +147,13 @@ h2 {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   overflow: auto;
 }
 
 .modal-content {
-  background-color: black;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -209,14 +207,14 @@ h2 {
 input {
     border: none;
     background: transparent;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgb(0, 0, 0);
     height: 2rem;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .submit {
     background-color: black ;
-    color: white;
+    color: rgb(232, 222, 222);
     font-family: "Julius Sans One", sans-serif;
     width: 5rem;
     height: 3rem;

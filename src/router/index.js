@@ -1,14 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import IntroductionView from "../views/IntroductionView.vue";
 
 const routes = [
+
   {
-    path: "/introductionView",
-    name: "introview",
-    component: IntroductionView,
-  },
-  {
-    path: "/",
+    path: "/home",
     name: "home",
     component: () => import("../views/HomeView.vue"),
   },
@@ -33,7 +28,7 @@ const routes = [
     component: () => import("../views/SingleProductView.vue"),
   },
   {
-    path: "/introduction",
+    path: "/",
     name: "introduction",
     component: () => import("../views/IntroductionView.vue"),
   },
@@ -57,6 +52,11 @@ const routes = [
     name: "login",
     component: () => import("../views/LogInView.vue"),
   },
+  {
+    path: "/profile",
+    name: "profile",
+    component: () => import("../views/ProfileView.vue"),
+  }
 ];
 
 const router = createRouter({

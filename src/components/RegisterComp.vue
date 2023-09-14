@@ -1,13 +1,13 @@
 <template>
    <div class="signup-container">
     <h2 class="fw-bold display-5">Sign up to be first in line when Envy Essentials has sales.</h2>
-    <form class="signup-form">
+    <form class="signup-form" @submit.prevent="register">
         <div class="form-group">
             <label for="firstName">First Name</label>
             <input
                         type="text"
                         id="firstName"
-                        class="form-control"
+                        class="firstName"
                         v-model="payload.firstName"
                         required
                       />

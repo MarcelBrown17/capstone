@@ -86,7 +86,7 @@
           </td>
           <td class="buttons">
               <div class="btns">
-                <button @click="UserDeleted(user.userID)" class="delete">
+                <button @click="deleteUser(user.userID)" class="delete">
                   Delete
                 </button>
                <button class="edit"> <router-link
@@ -240,6 +240,13 @@ h1 {
   justify-content: center;
   margin: auto;
   text-align: center;
+}
+
+button {
+  border-radius: 10px !important;
+}
+.users{
+  margin-bottom: 2rem;
 }
 
 @media only screen and (max-width: 768px) {

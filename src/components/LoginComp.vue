@@ -73,11 +73,10 @@ export default {
   methods: {
     async login() {
       this.loading = true;
-
       try {
        await this.$store.dispatch('login', this.payload);
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log('Well done');
+        console.log('You  are logged in');
       } catch (error) {
         console.error(error);
       } finally {

@@ -1,34 +1,50 @@
 <template>
   <section class="page-container">
-    <div class="cart-container">
-      <div class="product-image">
-        <img :src="product.prodUrl" :alt="product.prodName" />
-      </div>
-      <div class="product-info">
-        <h2>{{ product.prodName }}</h2>
-        <p>{{ product.Category }}</p>
-      </div>
-      <div class="product-amount">
-        <p>R {{ product.price }}</p>
-      </div>
-    </div>
-    <div class="greenwhich"></div>
-    <div class="summary-container">
-      <div class="summary">
-        <h2>Cart Summary</h2>
-        <div v-if="cart.length > 0">
-          <ul>
-            <li v-for="(item, index) in cart" :key="index">
-              {{ item.prodName }} - $ {{ item.price }} (Qty:
-              {{ item.quantity }})
-              <button @click="removeFromCart(item.prodID)">Remove</button>
-            </li>
-          </ul>
-          <p>Total: $ {{ calculateTotal() }}</p>
-          <button @click="checkout">Checkout</button>
+    <div class="cart-container" v-if="cart.length">
+      <div v-for="item in cart" :key="item.prodID" class="cart">
+        <div class="product-image">
+          <img :src="item.prodUrl" :alt="item.prodName" />
         </div>
-        <div v-else>
-          <p>Your cart is empty.</p>
+        <div class="product-info">
+          <h2>{{ item.prodName }}</h2>
+          <p>{{ item.Category }}</p>
+        </div>
+        <div class="product-quantity">
+          <input
+            type="number"
+            v-model="item.quantity"
+            @input="updateQuantity(item)"
+            class="quantity-input"
+          />
+        </div>
+        <div class="product-amount">
+          <p>R{{ item.price }}</p>
+        </div>
+        <div class="product-remove">
+          <button @click="removeFromCart(item.prodID)" class="remove-button">
+            Remove
+          </button>
+        </div>
+      </div>
+      <div class="greenwhich"></div>
+      <div class="summary-container">
+        <div class="summary">
+          <h2>Cart Summary</h2>
+          <div v-if="cart.length > 0">
+            <ul>
+              <li v-for="(item, index) in cart" :key="index">
+                {{ item.prodName }} - R{{ item.price }} (Qty: {{ item.quantity }})
+                <button @click="removeFromCart(item.prodID)" class="remove-button">
+                  Remove
+                </button>
+              </li>
+            </ul>
+            <p>Total: R{{ cartTotal }}</p>
+            <button @click="checkout">Checkout</button>
+          </div>
+          <div v-else>
+            <p>Your cart is empty.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -36,94 +52,42 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  data() {
-    return {
-      product: {
-        prodName: "",
-        Category: "",
-        price: 0,
-        prodUrl: "",
-      },
-      cart: [],
-    };
+  computed: {
+    cart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      return cart;
+    },
+    cartTotal() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    },
   },
   methods: {
-    async fetchCartData() {
-  try {
-    const response = await axios.get(
-      "https://envyessentials.onrender.com/cart/:id" // Change this URL to the correct one
-    );
+    removeFromCart(product_id) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    if (response.status === 200) {
-      this.cart = response.data;
-    } else {
-      console.error("Failed to fetch cart data.");
-    }
-  } catch (error) {
-    console.error("Error fetching cart data:", error);
-  }
-},
+      const updatedCart = cart.filter((item) => item.prodID !== product_id);
 
-addToCart(product) {
-  const existingItem = this.cart.find((item) => item.prodID === product.prodID);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
 
-  if (existingItem) {
-    existingItem.quantity++;
-  } else {
-    this.cart.push({ ...product, quantity: 1 }); // Push the product directly
-  }
-},
+      // You might consider using Vue's reactivity to update the cart without reloading the page.
+    },
 
-    removeFromCart(prodID) {
-      const index = this.cart.findIndex((item) => item.prodID === prodID);
+    updateQuantity(updatedItem) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const index = cart.findIndex((item) => item.prodID === updatedItem.prodID);
 
       if (index !== -1) {
-        if (this.cart[index].quantity > 0) {
-          this.cart[index].quantity--;
-          if (this.cart[index].quantity === 0) {
-            this.cart.splice(index, 1);
-          }
-        }
+        cart[index].quantity = updatedItem.quantity;
+
+        localStorage.setItem('cart', JSON.stringify(cart));
       }
     },
-    calculateTotal() {
-      return this.cart
-        .reduce((total, item) => total + item.price * item.quantity, 0)
-        .toFixed(2);
-    },
-    async checkout() {
-      try {
-        const checkoutEndpoint = "https://envyessentials.onrender.com/cart";
 
-        const orderData = {
-          items: this.cart.map((item) => ({
-            id: item.prodID,
-            name: item.prodName,
-            category: item.Category,
-            price: item.price,
-            quantity: item.quantity,
-          })),
-          total: this.calculateTotal(),
-        };
-        const response = await axios.post(checkoutEndpoint, orderData);
-
-        if (response.status === 200) {
-          alert("Checkout successful!");
-          this.cart = [];
-        } else {
-          alert("Checkout failed. Please try again later.");
-        }
-      } catch (error) {
-        console.error("Error during checkout:", error);
-        alert("An error occurred during checkout.");
-      }
+    checkout() {
+      // Implement your checkout logic here
     },
-  },
-  created() {
-    this.fetchCartData();
   },
 };
 </script>
@@ -160,7 +124,7 @@ body {
   border-radius: 8px;
   padding: 20px;
   width: 900px;
-  height: 250px;
+  height: auto; /* Updated height to fit content */
 }
 
 .product-image img {

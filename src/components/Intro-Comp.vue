@@ -12,13 +12,13 @@
         Elevate Your Everyday Elegance
       </div>
       <div class="buttons">
-        <a href="#"><button class="loginBtn py-3 px-4 rounded-5">Login</button></a>
-        <a href="#"><button class="signupBtn py-3 px-4 rounded-5">Sign Up</button></a>
+        <router-link to="/login"><button class="loginBtn py-3 px-4 rounded-5">Login</button></router-link>
+        <router-link to="/register"><button class="signupBtn py-3 px-4 rounded-5">Sign Up</button></router-link>
       </div>
     </div>
     <div class="image-container">
       <img
-        src="https://i.postimg.cc/QxdJjD11/Screenshot-2023-09-05-120442.png"
+        src="https://i.postimg.cc/xTnpDZTY/20170419061953-menwear.jpg"
         alt="Background Image"
       />
     </div>
@@ -53,14 +53,10 @@ export default {
 }
 
 .image-container img {
-  object-fit: cover;
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+
 }
 
 .heading {

@@ -1,6 +1,6 @@
 <template>
     <!-- Footer -->
-<footer class="text-center text-lg-start text-light pt-2 bg-black mt-5">
+<footer class="text-center text-lg-start text-light bg-black">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <!-- Left -->
@@ -56,7 +56,7 @@
             Navigation
           </h6>
           <p>
-          <router-link to="/" class="
+          <router-link to="/home" class="
           link">Home</router-link>
           </p>
           <p>
@@ -115,7 +115,7 @@
 
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2023Copyright:
+    © 2015Copyright:
     <span class="text-reset fw-bold" href="" id="rowan">EnvyEssentials</span>
   </div>
   <!-- Copyright -->

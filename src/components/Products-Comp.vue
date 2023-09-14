@@ -17,9 +17,14 @@
         </div>
         <div class="sort mt-0 pt-0">
           <label for="search">Sort by Price</label>
-          <select name="sort" id="sort">
-            <option value="lowest" id="lowest">Lowest</option>
-            <option value="highest" id="highest">Highest</option>
+          <select
+            name="price"
+            id="price"
+            v-model="selectedSort"
+            @change="sortProducts"
+          >
+            <option value="lowest">Lowest</option>
+            <option value="highest">Highest</option>
           </select>
         </div>
         <div class="sort">
@@ -44,10 +49,10 @@
       <div class="product-cards">
         <div>
           <div class="container">
-            <ul class="cards">
+            <ul class="cards" v-if="productsList && productsList.length > 0">
               <li
                 class="card"
-                v-for="product in products"
+                v-for="product in filteredProductList"
                 :key="product.prodID"
               >
                 <div>
@@ -78,8 +83,6 @@
                         imageUrl2: product.imageUrl2,
                         imageUrl3: product.imageUrl3,
                         imageUrl4: product.imageUrl4,
-
-                        // Add more pics
                       },
                     }"
                     ><button class="view-more">View More</button>
@@ -92,8 +95,10 @@
                     Add to Cart
                   </button>
                 </div>
+               
               </li>
             </ul>
+            <spinner v-else></spinner>
           </div>
         </div>
       </div>
@@ -101,15 +106,36 @@
   </div>
 </template>
 <script>
+import Spinner from "./SpinnerComp.vue";
+
 export default {
+  components: { Spinner },
   data() {
     return {
-      products: [],
+      searchInput: "",
+      selectedSort: "lowest",
     };
   },
   computed: {
-    products() {
+    productsList() {
       return this.$store.state.products;
+    },
+    filteredProductList() {
+      const searchQuery = this.searchInput.toLowerCase();
+      return this.productsList.filter((product) => {
+        const prodName = product.prodName.toLowerCase();
+        const Category = product.Category.toLowerCase();
+        return prodName.includes(searchQuery) || Category.includes(searchQuery);
+      });
+    },
+  },
+  methods: {
+    sortProducts() {
+      if (this.selectedSort === "lowest") {
+        this.productsList.sort((a, b) => a.price - b.price);
+      } else if (this.selectedSort === "highest") {
+        this.productsList.sort((a, b) => b.price - a.price);
+      }
     },
   },
   mounted() {
@@ -129,7 +155,7 @@ h1 {
   color: #000000;
 }
 .search-bar {
-  margin-bottom: -1rem !important;
+  margin-bottom: 0.5rem !important;
 }
 input {
   border: 1px solid black;
@@ -228,10 +254,6 @@ label {
   font-size: 18px;
 }
 
-.card:hover {
-  transform: scaleX(1.1);
-}
-
 .card .card-title {
   font-size: 20px;
 }
@@ -249,10 +271,16 @@ label {
   border-radius: 8px;
   transition: background 0.2s;
 }
-
-.card button:hover {
-  background-color: rgb(0, 0, 0);
+.card button {
+  border-radius: 5px !important;
+  padding: 6px !important;
   color: #ffffff;
+  background-color: rgb(0, 0, 0);
+}
+.card button:hover {
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  border: 3px solid black;
 }
 
 @media (min-width: 500px) {

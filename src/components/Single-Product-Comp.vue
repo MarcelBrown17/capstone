@@ -3,32 +3,79 @@
     <div class="row">
       <div class="col-md-5">
         <!-- Carousel -->
-        <div id="productCarousel" class="carousel" data-bs-ride="carousel" style="height: 25rem;">
+        <div
+          id="productCarousel"
+          class="carousel"
+          data-bs-ride="carousel"
+          style="height: 25rem"
+        >
           <ol class="carousel-indicators">
-            <li data-bs-target="#productCarousel" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#productCarousel" data-bs-slide-to="1"></li>
-            <li data-bs-target="#productCarousel" data-bs-slide-to="2"></li>
-            <li data-bs-target="#productCarousel" data-bs-slide-to="3"></li>
+            <li
+              data-bs-target="#productCarousel"
+              data-bs-slide-to="0"
+              class="active"
+            ></li>
+            <li
+              data-bs-target="#productCarousel"
+              data-bs-slide-to="1"
+              class="Product Image2"
+            ></li>
+            <li
+              data-bs-target="#productCarousel"
+              data-bs-slide-to="2"
+              class="Product Image3"
+            ></li>
+            <li
+              data-bs-target="#productCarousel"
+              data-bs-slide-to="3"
+              class="Product Image4"
+            ></li>
           </ol>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img :src="$route.query.prodUrl" class="d-block w-100" alt="Product Image" />
+              <img
+                :src="$route.query.prodUrl"
+                class="d-block w-100"
+                id="Product Image"
+              />
             </div>
             <div class="carousel-item">
-              <img :src="$route.query.imageUrl2" class="d-block w-100" alt="Product Image" />
+              <img
+                :src="$route.query.imageUrl2"
+                class="d-block w-100"
+                id="Product-Image2"
+              />
             </div>
             <div class="carousel-item">
-              <img :src="$route.query.imageUrl3" class="d-block w-100" alt="Product Image" />
+              <img
+                :src="$route.query.imageUrl3"
+                class="d-block w-100"
+                id="Product-Image3"
+              />
             </div>
             <div class="carousel-item">
-              <img :src="$route.query.imageUrl4" class="d-block w-100" alt="Product Image" />
+              <img
+                :src="$route.query.imageUrl4"
+                class="d-block w-100"
+                aid="Product-Image4"
+              />
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="prev"
+          >
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="next"
+          >
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
           </button>
         </div>
@@ -36,20 +83,26 @@
       <div class="col-md-2"></div>
       <div class="col-md-5" id="product-details">
         <!-- Product Details -->
-        <div class="card" style="height: 25rem;">
+        <div class="card" style="height: 25rem">
           <div class="card-heading"><h2>Product Details</h2></div>
           <div class="card-body">
             <h5 class="card-title">Name:{{ $route.query.prodName }}</h5>
             <p class="card-text">
-              <span><h5>Category:{{ $route.query.Category}}</h5></span>
+              <span
+                ><h5>Category:{{ $route.query.Category }}</h5></span
+              >
             </p>
             <p class="card-text">
-              <span><h5>Price: R{{ $route.query.price }}</h5></span>
+              <span
+                ><h5>Price: R{{ $route.query.price }}</h5></span
+              >
             </p>
           </div>
           <div class="card-footer">
             <router-link to="/products" class="btn">Back</router-link>
-            <router-link to="/cart" class="btn" id="cart-btn">Add To Cart</router-link>
+            <button class="btn" type="button" @click="addToCart()">
+              Add To Cart
+            </button>
           </div>
         </div>
       </div>
@@ -57,50 +110,78 @@
   </div>
 </template>
 
-
-
 <script>
- export default {
-computed: {
-  product() {
-    return this.$store.state.product;
+export default {
+  data: () => {
+    return {
+      cart: [],
+    };
   },
+  computed: {
+    product() {
+      return this.$store.state.product;
+    },
+  },
+  mounted() {
+    const prodID = this.$route.params.prodID;
+    this.$store.dispatch("fetchProduct", this.$route.params.prodID);
+    console.log("Fetching product data");
+  },
+
+  methods: {
+    addToCart() {
+      const product = {
+        prodID: this.$route.query.prodID,
+        prodName: this.$route.query.prodName,
+        Category: this.$route.query.Category,
+        price: this.$route.query.price,
+        prodUrl: this.$route.query.prodUrl,
+      };
+
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const existingProductIndex = cart.findIndex((item) => item.prodID === product.prodID);
+
+  if (existingProductIndex !== -1) {
+    cart[existingProductIndex].quantity += 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
 },
-mounted() {
-  this.$store.dispatch('fetchProduct', this.$route.params.prodID);
-  console.log('Fetching product data');
-},
-};
+
+
+  },
+  }
+
 </script>
 
 <style scoped>
-
-
-.d-block{
+.d-block {
   justify-content: center !important;
 }
-.carousel-item{
+.carousel-item {
   height: 35rem !important;
   width: 25rem !important;
   justify-content: center !important;
-  align-items:center ;
+  align-items: center;
 }
-    .container {
-      margin-top: 10rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 5rem;
-  }
+.container {
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+}
 
-  .container {
-      flex: 1;
-  }
+.container {
+  flex: 1;
+}
 
-  .card-heading {
-    
-      padding-top: 2rem;
-  }
+.card-heading {
+  padding-top: 2rem;
+}
 
 .image-container {
   display: flex;
@@ -130,7 +211,7 @@ mounted() {
   flex-direction: column;
   align-items: center; /* Center align card contents horizontally */
   text-align: center; /* Center align text inside the card */
-  margin-left:"9rem";
+  margin-left: "9rem";
   justify-content: center !important;
 }
 
@@ -149,7 +230,6 @@ mounted() {
   object-fit: cover; /* Ensure the image fills the container */
 }
 
-
 .btn {
   background-color: #000000;
   color: white;
@@ -157,7 +237,7 @@ mounted() {
   padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 4px;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -166,7 +246,7 @@ mounted() {
   color: #000000;
 }
 
-#cart-btn{
+#cart-btn {
   margin-left: 1rem !important;
 }
 </style>

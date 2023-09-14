@@ -5,7 +5,6 @@
       <div class="spinner-circle2"></div>
       <div class="spinner-circle3"></div>
     </div>
-    Loading...
   </div>
 </template>
 
@@ -19,6 +18,7 @@
   height: 100%;
   font-size: 18px;
   color: #333;
+  margin: auto !important;
 }
 
 .spinner-container {

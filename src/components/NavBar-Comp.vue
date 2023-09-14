@@ -4,10 +4,6 @@
       <nav class="navbar navbar-dark bg-black fixed-top p-3">
         <div class="container-fluid">
           <div class="navbar-brand">
-            <img
-              src="https://i.postimg.cc/pr7ydDZp/Screenshot-2023-09-12-111142.png"
-              class="logo"
-            />
             <h1 class="navbar-brand1">Envy Essentials</h1>
           </div>
 
@@ -40,7 +36,7 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 fs-4">
                 <li class="nav-item">
-                  <router-link to="/" class="nav-link" aria-current="page"
+                  <router-link to="/home" class="nav-link" aria-current="page"
                     >Home</router-link
                   >
                 </li>
@@ -53,9 +49,12 @@
                   <router-link to="/admin" class="nav-link">Admin</router-link>
                 </li>
                 <li class="nav-item">
-                  <router-link to="/contact" class="nav-link"
-                    >Contact</router-link
+                  <router-link to="/profile" class="nav-link"
+                    >Profile</router-link
                   >
+                </li>
+                <li class="nav-item">
+                  <router-link to="/contact" class="nav-link">Contact</router-link>
                 </li>
                 <li class="nav-item">
                   <router-link to="/about" class="nav-link">About</router-link>
@@ -77,18 +76,5 @@ export default {};
 </script>
 
 <style scoped>
-.logo {
-  height: 4rem;
-  width: 4rem;
-  float: left;
-}
-.navbar-brand {
-  display: flex;
-  text-align: left !important;
-  float: left;
-  align-items: center !important;
-}
-.navbar-brand1 {
-  padding-left: 1.5rem;
-}
+
 </style>

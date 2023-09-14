@@ -18,7 +18,7 @@ export default createStore({
     token: null,
     msg: null,
     add: null,
-    searchInput: "",
+    cartItems: []
   },
   getters: {},
   mutations: {
@@ -49,8 +49,8 @@ export default createStore({
     setAdd(state, data) {
       state.add = data;
     },
-    setSearchInput(state, searchInput) {
-      state.searchInput = searchInput;
+    removeFromCart(state, ProdID) {
+      state.cartItems = state.cartItems.filter(item => item.id !== ProdID);
     },
   },
   actions: {
@@ -135,7 +135,7 @@ export default createStore({
             timer: 4000,
           });
           context.dispatch("fetchUsers");
-          router.push({ name: "/login" });
+          router.push({ name: "login" });
         } else {
           router.push("/login");
         }
@@ -151,6 +151,7 @@ export default createStore({
         ).data;
         if (results) {
           context.commit("setUser", { results, msg });
+ localStorage.setItem("user", JSON.stringify(results))
           cookies.set("MannUser", { msg, token, results });
           authenticateUser.applyToken(token);
           swal({
@@ -159,7 +160,7 @@ export default createStore({
             icon: "success",
             timer: 4000,
           });
-          router.push({ name: "/home"})
+          router.push({ name: "home"})
         } else {
           swal({
             title: "Error",
@@ -174,11 +175,29 @@ export default createStore({
     },
     LogOut(context) {
       context.commit("setUser");
+      localStorage.removeItem("user");
       cookies.remove("MannUser");
     },
-    setSearchInput({ commit }, searchInput) {
-      commit("setSearchInput", searchInput);
+ async saveEdit(context, edit) {
+      try {
+        const { data } = await axios.patch(
+          `${url}products/${edit.prodID}`,
+          edit
+        );
+        context.commit("setProduct", data.results);
+        console.log("Product updated successfully:", data.results);
+      } catch (e) {
+        console.error("Error updating product:", e);
+      }
     },
+    removeFromCart(state,product) {
+      statusbar.cartItems =- state.cartItems.filter(item => item.id !== product
+        )
+    },
+    addToCart({ commit }, item) {
+      commit('addToCart', item);
+    },
+
   },
   modules: {},
 });
