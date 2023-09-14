@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 app.use(
   express.static("./static"),
   express.urlencoded({
-    extended: false,
+    extended: true,
   }),
   cors(),
   cookieParser(),
