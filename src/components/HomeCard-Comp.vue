@@ -1,85 +1,119 @@
 <template>
-    <div class="container">
-  <h2>Top sales this week</h2>
-  <ul class="cards">
-    <li class="card">
-      <div>
-        <h3 class="card-title">Service 1</h3>
-        <div class="card-content">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+  <div class="container">
+    <h2>Top sales this week</h2>
+    <ul class="cards">
+      <li class="card">
+        <div class="img-con">
+          <img
+            src="https://i.postimg.cc/k4Gg5K1k/77736365-800-800.png"
+            alt="Service 2 Image"
+            class="card-image"
+          />
+          <!-- Add image here -->
+          <h3 class="card-title">MKM Navy Blue Smart Zip Golfer</h3>
+          <div class="card-content">
+            <p class="card-price">R 280.00</p>
+            <p class="card-category">Golfer</p>
+          </div>
         </div>
-      </div>
-      <div class="card-link-wrapper">
-        <a href="" class="card-link">Learn More</a>
-      </div>
-    </li>
-    <li class="card">
-      <div>
-        <h3 class="card-title">Service 2</h3>
-        <div class="card-content">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repudiandae magnam harum natus fuga et repellat in maiores.</p>
+        <div class="card-link-wrapper">
+          <router-link to="/products" class="card-link"
+            ><button class="btn">View Products</button></router-link
+          >
         </div>
-      </div>
-      <div class="card-link-wrapper">
-        <a href="" class="card-link">Learn More</a>
-      </div>
-    </li>
-    <li class="card">
-      <div>
-        <h3 class="card-title">Service 3</h3>
-        <div class="card-content">
-          <p>Phasellus ultrices lorem vel bibendum ultricies. In hendrerit nulla a ante dapibus pulvinar eu eget quam.</p>
+      </li>
+
+      <li class="card">
+        <div>
+          <img
+            src="https://i.postimg.cc/mrwcd76n/77555762-800-800.png"
+            alt="Service 2 Image"
+            class="card-image"
+          />
+          <!-- Add image here -->
+          <h3 class="card-title">MKM Dark Grey Smart Birdseye Knit Shirt</h3>
+          <div class="card-content">
+            <p class="card-price">R 499.00</p>
+            <p class="card-category">Shirt</p>
+          </div>
         </div>
-      </div>
-      <div class="card-link-wrapper">
-        <a href="" class="card-link">Learn More</a>
-      </div>
-    </li>
-    <li class="card">
-      <div>
-        <h3 class="card-title">Service 4</h3>
-        <div class="card-content">
-          <p>Aenean posuere mauris quam, pellentesque auctor mi bibendum nec. Sed scelerisque lacus nisi, quis auctor lorem ornare vel.</p>
+        <div class="card-link-wrapper">
+          <router-link to="/products" class="card-link"
+            ><button class="btn">View Products</button></router-link
+          >
         </div>
-      </div>
-      <div class="card-link-wrapper">
-        <a href="" class="card-link">Learn More</a>
-      </div>
-    </li>
-    <li class="card">
-      <div>
-        <h3 class="card-title">Service 5</h3>
-        <div class="card-content">
-          <p>Vestibulum pharetra fringilla felis sit amet tempor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras et arcu sit amet est consequat feugiat. Nam ut sapien pulvinar.</p>
+      </li>
+
+      <li class="card">
+        <div>
+          <img
+            src="https://i.postimg.cc/Dz5WC24P/73689387-800-800.png',"
+            alt="Service 2 Image"
+            class="card-image"
+          />
+          <!-- Add image here -->
+          <h3 class="card-title">MKM Natural Slim Stretch Suit Jacket</h3>
+          <div class="card-content">
+            <p class="card-price">R 1500.00</p>
+            <p class="card-category">Suit</p>
+          </div>
         </div>
-      </div>
-      <div class="card-link-wrapper">
-        <a href="" class="card-link">Learn More</a>
-      </div>
-    </li>
-    <li class="card">
-      <div>
-        <h3 class="card-title">Service 6</h3>
-        <div class="card-content">
-          <p>Donec ut tincidunt nisl. Vivamus eget eros id elit feugiat mollis. Nam sed sem quis libero finibus tempor.</p>
+        <div class="card-link-wrapper">
+          <router-link to="/products" class="card-link"
+            ><button class="btn">View Products</button></router-link
+          >
         </div>
-      </div>
-      <div class="card-link-wrapper">
-        <a href="" class="card-link">Learn More</a>
-      </div>
-    </li>
-  </ul>
-</div>
+      </li>
+
+      <li class="card">
+        <div>
+          <img
+            src="https://i.postimg.cc/8zfbskz5/AllTerritories_OnBody_28109001_F_600x.webp"
+            alt="Service 2 Image"
+            class="card-image"
+          />
+          <!-- Add image here -->
+          <h3 class="card-title">Marisa Plunge Neck Velvet Dress</h3>
+          <div class="card-content">
+            <p class="card-price">R 1899.00</p>
+            <p class="card-category">Dress</p>
+          </div>
+        </div>
+        <div class="card-link-wrapper">
+          <router-link to="/products" class="card-link"
+            ><button class="btn">View Products</button></router-link
+          >
+        </div>
+      </li>
+      <li class="card">
+        <div>
+          <img
+            src="https://i.postimg.cc/zXnPVMg1/68667008-800-800.png"
+            alt="Service 2 Image"
+            class="card-image"
+          />
+          <!-- Add image here -->
+          <h3 class="card-title">MKM Brown Slim Suit Trouser</h3>
+          <div class="card-content">
+            <p class="card-price">R 650.00</p>
+            <p class="card-category">Pants</p>
+          </div>
+        </div>
+        <div class="card-link-wrapper">
+          <router-link to="/products" class="card-link"
+            ><button class="btn">View Products</button></router-link
+          >
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>
-
 body {
   margin-top: 6rem;
   font: 16px / 24px "Rubik", sans-serif;
@@ -94,8 +128,8 @@ body {
 }
 
 h2 {
-  font-size: 32px;
-  margin-bottom: 1em;
+  font-size: 36px;
+  margin-top: 1rem;
 }
 
 .cards {
@@ -117,13 +151,20 @@ h2 {
   transition: all 0.2s;
   border: 5px solid black;
 }
+.img-con {
+  margin: auto !important;
+  justify-content: center !important;
+}
+
+img {
+  justify-content: center !important;
+  width: 100%;
+  margin-bottom: 2rem;
+  height: 19rem;
+}
 
 .card:not(:last-child) {
   margin-right: 10px;
-}
-
-.card:hover {
-transform: scaleX(1.1);
 }
 
 .card .card-title {
@@ -138,12 +179,20 @@ transform: scaleX(1.1);
 .card .card-link-wrapper {
   margin-top: auto;
 }
+.btn {
+  background-color: black;
+  color: white;
+}
+.btn:hover {
+  background-color: rgb(255, 255, 255);
+  border: 2px solid black;
+  color: black;
+}
 
 .card .card-link {
   display: inline-block;
   text-decoration: none;
-  color: white;
-  background: var(--red);
+  color: rgb(255, 255, 255);
   padding: 6px 12px;
   border-radius: 8px;
   transition: background 0.2s;
@@ -167,12 +216,15 @@ transform: scaleX(1.1);
 }
 
 .cards::-webkit-scrollbar-track {
-  background-color: #7D7D7D;
+  background-color: #7d7d7d;
 }
 
-@media (min-width: 500px) {
+@media only screen and (max-width: 300px) {
   .card {
-    flex-basis: calc(50% - 10px);
+    flex-basis: 80%;
+  }
+  img {
+    height: 12rem;
   }
 
   .card:not(:last-child) {
@@ -184,15 +236,11 @@ transform: scaleX(1.1);
   .card {
     flex-basis: calc(calc(100% / 3) - 20px);
   }
-
 }
 
 @media (min-width: 1100px) {
   .card {
     flex-basis: calc(25% - 30px);
   }
-
 }
-
-
 </style>

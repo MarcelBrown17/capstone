@@ -6,7 +6,7 @@
 
 <script>
 import NavBarComp from "../components/NavBar-Comp.vue";
-import FooterComp from "../components/Footer-Comp.vue";
+import FooterComp from "../components/FooterComp.vue";
 import SingleProductComp from "../components/Single-Product-Comp.vue";
 import spinner from "@/components/SpinnerComp.vue";
 

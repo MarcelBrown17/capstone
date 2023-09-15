@@ -57,13 +57,13 @@
           link">Home</router-link>
           </p>
           <p>
-            <router-link to="products" class="link">Products</router-link>
+            <router-link to="/products" class="link">Products</router-link>
           </p>
           <p>
-            <router-link to="about" class="link">About</router-link>
+            <router-link to="/about" class="link">About</router-link>
           </p>
           <p>
-            <router-link to="contact" class="link">Contact</router-link>
+            <router-link to="/contact" class="link">Contact</router-link>
           </p>
           </div>
         </div>

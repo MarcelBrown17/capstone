@@ -8,7 +8,7 @@
 <script>
 
 
-import FooterComp from "../components/Footer-Comp.vue";
+import FooterComp from "../components/FooterComp.vue";
 import AdminComp from "../components/Admin-Comp.vue";
 import NavBarComp from "../components/NavBar-Comp.vue";
 import ModalComp from "../components/add-modal-comp.vue";

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import FooterComp from "../components/Footer-Comp.vue";
+import FooterComp from "../components/FooterComp.vue";
 import NavBarComp from "../components/NavBar-Comp.vue";
 import CartComp from "../components/Cart-Comp.vue";
 export default {

@@ -48,7 +48,7 @@
 </template>
 <script>
 import NavBarComp from "../components/NavBar-Comp.vue";
-import FooterComp from "../components/Footer-Comp.vue";
+import FooterComp from "../components/FooterComp.vue";
 export default {
   components: {
     NavBarComp,

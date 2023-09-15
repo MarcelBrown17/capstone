@@ -88,7 +88,10 @@ export default {
     },
 
     checkout() {
-      // Implement your checkout logic here
+      sweet('Success!', 'Items purchased successfully', 'success');
+
+      localStorage.removeItem('cart');
+      window.location.reload();
     },
   },
 };
@@ -99,13 +102,10 @@ export default {
   padding-top: 3rem;
   margin-top: 3rem;
   padding-bottom: 2rem;
-  justify-content: center;
+  box-shadow: none !important;
 }
 body {
   background-color: black;
-}
-.greenwhich {
-  padding: 30px;
 }
 .summary {
   display: flex;
@@ -117,6 +117,12 @@ body {
   padding: 20px;
   font-size: 25px !important;
   border-radius: 8px;
+  margin-left: 11rem;
+  box-shadow: none !important;
+  
+}
+.summary-container{
+  margin-top: 3rem;
 }
 .cart-container {
   display: flex !important;
@@ -128,7 +134,7 @@ body {
   padding: 20px;
   width: 600px !important;
   height: 400px !important;
-  margin-right: 55rem;
+  box-shadow: none !important;
 }
 .cart {
   display: flex !important;
@@ -141,6 +147,7 @@ body {
   width: 800px !important;
   height: 400px !important;
   gap: 10px !important;
+  box-shadow: none !important;
 }
 .product-image img {
   max-width: 300px;
@@ -172,10 +179,6 @@ body {
 }
 /* Cart summary styles */
 .cart-container {
-  width: auto;
-  height: auto;
-}
-.summary {
   width: auto;
   height: auto;
 }
