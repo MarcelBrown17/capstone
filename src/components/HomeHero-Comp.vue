@@ -134,10 +134,12 @@ export default {
         border-radius: 12px;
         padding: 1rem;
         border: 5px solid black;
-        background-image: url(https:i.postimg.cc/HW96LzHM/95559ca9a79f7da23522cb702e5eb2e8.jpg);
+        /* background-image: url(https:i.postimg.cc/HW96LzHM/95559ca9a79f7da23522cb702e5eb2e8.jpg); */
+        background-image: url(../assets/1\ \(1\).jpg);
         background-position-x: center;
         background-repeat: no repeat;
         color: #fff;
+        image-rendering: optimizeSpeed !important;
       }
       .card-body2 {
         background-color: rgb(255, 255, 255);
@@ -146,10 +148,12 @@ export default {
         border-radius: 12px;
         padding: 1rem;
         border: 5px solid black;
-        background-image: url(https:i.postimg.cc/50ZfGJ7h/wp1853889.webp);
+        /* background-image: url(https:i.postimg.cc/50ZfGJ7h/wp1853889.webp); */
+        background-image: url(../assets/2.webp);
         background-repeat: no-repeat;
         background-size: cover;
         color: #fff;
+        image-rendering: optimizeSpeed !important;
       }
       .card-body3 {
         background-color: rgb(255, 255, 255);
@@ -158,7 +162,9 @@ export default {
         border-radius: 12px;
         padding: 1rem;
         border: 5px solid black;
-        background-image: url(https:i.postimg.cc/PfcXpX21/19-11-12-205-1-min-1024x684.jpg);
+        image-rendering: optimizeSpeed !important;
+        /* background-image: url(https:i.postimg.cc/PfcXpX21/19-11-12-205-1-min-1024x684.jpg); */
+        background-image: url(../assets/3.jpg);
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -171,11 +177,13 @@ export default {
         border-radius: 12px;
         padding: 1rem;
         border: 5px solid rgb(0, 0, 0);
-        background-image: url(https:/i.postimg.cc/zvYnn0HT/138256028-special-offer-sale-banner-on-black-background-sale-up-to-70-percent-off-big-sale-end-of-se.jpg);
+        /* background-image: url(https:/i.postimg.cc/zvYnn0HT/138256028-special-offer-sale-banner-on-black-background-sale-up-to-70-percent-off-big-sale-end-of-se.jpg); */
+        background-image: url(../assets/4.jpg);
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         color: #fff;
+        image-rendering: optimizeSpeed !important;
       }
       .card-body5 {
         background-color: rgb(255, 255, 255);
@@ -184,9 +192,11 @@ export default {
         border-radius: 12px;
         padding: 1rem;
         border: 5px solid rgb(0, 0, 0);
-        background-image: url(https:/i.postimg.cc/L4JFJvmn/business-laptop-computer-flatlay.jpg);
+        /* background-image: url(https:/i.postimg.cc/L4JFJvmn/business-laptop-computer-flatlay.jpg); */
+        background-image: url(../assets/5.jpg);
         background-repeat: no-repeat;
         background-size: cover;
+        image-rendering: optimizeSpeed !important;
       }
       .card-body6 {
         background-color: rgb(255, 255, 255);
@@ -195,9 +205,11 @@ export default {
         border-radius: 12px;
         padding: 1rem;
         border: 5px solid rgb(0, 0, 0);
-        background-image: url(https:i.postimg.cc/FRB0BTLf/photo-1611348586755-53860f7ae57a.jpg);
+        /* background-image: url(https:i.postimg.cc/FRB0BTLf/photo-1611348586755-53860f7ae57a.jpg); */
+        background-image: url(../assets/6.jpg);
         background-position: center;
         background-repeat: no-repeat;
+        image-rendering: optimizeSpeed !important;
       }
       .card-body7 {
         background-color: rgb(255, 255, 255);
@@ -206,10 +218,12 @@ export default {
         border-radius: 12px;
         padding: 1rem;
         border: 5px solid black;
-        background-image: url(https:/i.postimg.cc/x8JQY1Ff/V-107-2.webp);
+        /* background-image: url(https:/i.postimg.cc/x8JQY1Ff/V-107-2.webp); */
+        background-image: url(../assets/7.webp);
         background-position: center;
         background-repeat: no-repeat;
         color: #fff;
+        image-rendering: optimizeSpeed !important;
       }
       .card-1 {
         margin: 6px;
