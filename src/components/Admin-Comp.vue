@@ -262,6 +262,7 @@ button {
     color: white;
     font-size: 1.9rem;
     border-left: 3px solid black;
+    border: none;
   }
 
   .table-container,

@@ -6,8 +6,6 @@ import bootstrap from "bootstrap";
 import { BootstrapIconsPlugin } from "bootstrap-icons-vue";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import '../registerservice'
-
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
