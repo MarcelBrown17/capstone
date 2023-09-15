@@ -31,7 +31,7 @@
           <label for="search">Filter</label>
           <select name="Category" id="Category" class="Category" v-model="selectedCategory" @change="filterProductsByCategory">
               <option value="">All Categories</option>
-              <option value="suit">Suit</option>
+              <option value="jacket">Suit</option>
               <option value="golfer">Golfer</option>
               <option value="pants">Pants</option>
               <option value="dress">Dress</option>
