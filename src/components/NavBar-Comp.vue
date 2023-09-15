@@ -4,7 +4,7 @@
       <nav class="navbar navbar-dark bg-black fixed-top p-3">
         <div class="container-fluid">
           <div class="navbar-brand">
-            <h1 class="navbar-brand1">Envy Essentials</h1>
+            Envy Essentials
           </div>
 
           <button
@@ -46,7 +46,7 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <router-link to="/admin" class="nav-link">Admin</router-link>
+                  <router-link to="/admin" class="nav-link" v-show="isAdmin">Admin</router-link>
                 </li>
                 <li class="nav-item">
                   <router-link to="/profile" class="nav-link"
@@ -62,6 +62,9 @@
                 <li class="nav-item">
                   <router-link to="/cart" class="nav-link">Cart</router-link>
                 </li>
+                <li class="nav-item">
+                  <button @click="logout" class="logout">Log out</button>
+                </li>
               </ul>
             </div>
           </div>
@@ -72,9 +75,59 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    userRole() {
+      const user = this.$store.state.user;
+      return user ? user.userRole : null;
+    },
+    isAdmin() {
+      return this.userRole === "Admin";
+    },
+    SignedIn() {
+      const userData = localStorage.getItem("user");
+      return !!userData;
+    },
+  },
+  mounted() {
+    this.$store.dispatch("fetchUsers");
+  },
+  created() {
+    const saveData = localStorage.getItem("user");
+    if (saveData) {
+      this.user = JSON.parse(saveData);
+    }
+    const data = JSON.parse(localStorage.getItem("user"));
+    if (data) {
+      this.$store.commit("setUser", data);
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("user");
+      this.$store.commit("setUser", null);
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style scoped>
 
+.navbar-brand{
+    font-size: 2.4rem !important;
+  }
+  .logout{
+    background-color: transparent;
+    border: none;
+    color: white;
+    margin: 0 !important;
+    margin-left: 1 !important;
+    padding: 0 !important;
+  }
+@media only screen and (max-width: 300px) {
+  .navbar-brand{
+    font-size: 1.7rem !important;
+  }
+}
 </style>

@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import {useCookies} from 'vue3-cookies'
+const {cookies} = useCookies()
 const routes = [
 
   {
     path: "/home",
     name: "home",
     component: () => import("../views/HomeView.vue"),
+    beforeEnter(){
+      if(!cookies.get('MannUser')){
+        router.push({name:"home"})
+      }
+    }
   },
   {
     path: "/about",
@@ -31,6 +37,7 @@ const routes = [
     path: "/",
     name: "introduction",
     component: () => import("../views/IntroductionView.vue"),
+    
   },
   {
     path: "/cart",
@@ -51,6 +58,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("../views/LogInView.vue"),
+  },
+  {
+    path: "/edit-product",
+    name: "Edit",
+    component: () => import("../views/EditProductView.vue"),
   },
   {
     path: "/profile",

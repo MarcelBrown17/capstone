@@ -28,11 +28,15 @@
           </select>
         </div>
         <div class="sort">
-          <label for="search">Sort Alphabetically</label>
-          <select name="sort" id="sort">
-            <option value="lowest" id="lowest">A-Z</option>
-            <option value="highest" id="highest">Z-A</option>
-          </select>
+          <label for="search">Filter</label>
+          <select name="Category" id="Category" class="Category" v-model="selectedCategory" @change="filterProductsByCategory">
+              <option value="">All Categories</option>
+              <option value="suit">Suit</option>
+              <option value="golfer">Golfer</option>
+              <option value="pants">Pants</option>
+              <option value="dress">Dress</option>
+              <option value="shirt">Shirt</option>
+            </select>
         </div>
         <div class="Categories">
           <h2>Categories</h2>
@@ -88,14 +92,26 @@
                     ><button class="view-more">View More</button>
                   </router-link>
 
-                  <button
+                 <router-link id="view-more"
+                    :to="{
+                      name: 'product',
+                      params: { prodID: product.prodID },
+                      query: {
+                        prodName: product.prodName,
+                        price: product.price,
+                        Category: product.Category,
+                        prodUrl: product.prodUrl,
+                        imageUrl2: product.imageUrl2,
+                        imageUrl3: product.imageUrl3,
+                        imageUrl4: product.imageUrl4,
+                      },
+                    }"><button
                     class="add-to-cart-button"
-                    @click="addToCart(product)"
+                    
                   >
                     Add to Cart
-                  </button>
+                  </button></router-link>
                 </div>
-               
               </li>
             </ul>
             <spinner v-else></spinner>
@@ -113,29 +129,45 @@ export default {
   data() {
     return {
       searchInput: "",
+      selectedCategory: "",
       selectedSort: "lowest",
     };
   },
-  computed: {
+   computed: {
     productsList() {
       return this.$store.state.products;
     },
     filteredProductList() {
       const searchQuery = this.searchInput.toLowerCase();
-      return this.productsList.filter((product) => {
+      let filteredList = this.productsList.filter((product) => {
         const prodName = product.prodName.toLowerCase();
         const Category = product.Category.toLowerCase();
-        return prodName.includes(searchQuery) || Category.includes(searchQuery);
+        return (
+          (prodName.includes(searchQuery) || Category.includes(searchQuery)) &&
+          (this.selectedCategory === "" || Category === this.selectedCategory)
+        );
       });
+
+      if (this.selectedSort === "lowest") {
+        filteredList = filteredList.sort((a, b) => a.price - b.price);
+      } else if (this.selectedSort === "highest") {
+        filteredList = filteredList.sort((a, b) => b.price - a.price);
+      }
+
+      return filteredList;
     },
   },
   methods: {
     sortProducts() {
-      if (this.selectedSort === "lowest") {
-        this.productsList.sort((a, b) => a.price - b.price);
-      } else if (this.selectedSort === "highest") {
-        this.productsList.sort((a, b) => b.price - a.price);
-      }
+    },
+    filterProductsByCategory() {
+    },
+    getBrands() {
+      const CategorySet = new Set();
+      this.productsList.forEach((product) => {
+        CategorySet.add(product.Category);
+      });
+      return Array.from(CategorySet);
     },
   },
   mounted() {
@@ -283,32 +315,6 @@ label {
   border: 3px solid black;
 }
 
-@media (min-width: 500px) {
-  .card {
-    flex-basis: calc(50% - 10px);
-  }
-}
-
-@media (min-width: 700px) {
-  .card {
-    flex-basis: calc(calc(100% / 3) - 20px);
-  }
-}
-
-@media (min-width: 300px) {
-  .card {
-    flex-basis: calc(25% - 30px);
-  }
-}
-
-.card-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center content horizontally */
-  text-align: center; /* Center content text horizontally */
-  padding: 20px;
-}
-
 .image-container {
   display: flex;
   justify-content: center; /* Center image horizontally */
@@ -320,5 +326,58 @@ label {
 }
 #view-more {
   text-decoration: none;
+}
+
+@media only screen and (max-width: 300px) {
+  .card {
+    flex-basis: 80% !important;
+  }
+
+  .flexed-display {
+    display: flex;
+    flex-direction: column;
+    margin: auto !important;
+  }
+  .sidebar {
+    width: 80%;
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    overflow-x: hidden;
+    list-style-type: none;
+  }
+
+  .container {
+    display: block;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+    border: 3px solid black;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  img{
+    height: 16rem !important;
+  }
+  .add-to-cart-button {
+    margin:auto !important;
+    margin-top: 5px !important;
+  
+  }
+  #view-more {
+    margin-bottom: 2rem !important;
+    text-decoration: none;
+  }
 }
 </style>

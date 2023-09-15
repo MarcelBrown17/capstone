@@ -1,13 +1,13 @@
 <template>
  <body>
-    <div class="page-container">
+  <div class="page-container">
       <div class="black-background">
       <h1 class="heading">About Us</h1>
         <div class="founder-image">
           <!-- image displays here -->
         </div>
         <div class="text">
-          <h3 class="font">The founder of Envy Essentials</h3>
+          <h2 class="font">The founder of Envy Essentials</h2>
         </div>
       </div>
       <div class="image-container">
@@ -76,7 +76,6 @@
         <div class="img-4"></div>
       </div>
     </div>
-
   </body>
     
   </template>
@@ -260,7 +259,7 @@
           background-color: black;
           display: flex;
           flex-direction: column;
-          height: 25rem;
+          height: 30rem;
         }
 
         .staff {
@@ -279,43 +278,29 @@
         .company {
           background-color: black;
           display: flex;
-
+          height: 30rem;
           flex-direction: column-reverse;
         }
 
         .img {
-          background-image: url(https://i.postimg.cc/TYDVKmGz/peakpx-11.jpg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
           width: auto;
           height: 25rem;
         }
         .img-2 {
-          background-image: url(https://i.postimg.cc/W4zWfnQd/peakpx-12.jpg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
           width: auto;
           height: 25rem;
         }
 
         .img-3 {
-          background-image: url(https://i.postimg.cc/TYkV1W7x/peakpx-13.jpg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
           width: auto;
           height: 25rem;
         }
 
         .img-4 {
-          background-image: url(https://i.postimg.cc/LX50WMbK/peakpx-14.jpg);
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;
+
           width: auto;
           height: 25rem !important;
+padding-bottom:10rem !important ;
         }
 
         .info {
@@ -362,7 +347,7 @@
         .p-text {
           text-align: center;
           padding: 20px !important;
-          margin-top: 0 !important;
+          margin-bottom: 1rem !important;
         }
         .text {
           padding: 0px !important;
@@ -375,10 +360,20 @@
           height: 20rem !important;
           width: 15rem !important;
           margin-right: 11rem !important;
+          margin-top: -4rem;
         }
 
+        h2 {
+          margin-top: 4rem !important;
+          padding-right: 13rem;
+        }
+        h1 {
+          margin-top: 7rem !important;
+          margin-left: 3.5rem !important;
+        }
         h3 {
-          margin-bottom: 0 !important;
+          margin-top: 2rem !important;
+          margin-bottom: -2rem !important;
         }
         .black-background {
           display: grid !important;

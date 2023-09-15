@@ -39,9 +39,8 @@
                   Delete
                 </button>
                <button class="edit"> <router-link
-                  :to="`/edit-product/${product.prodID}`"
-                  class="editlink"
-                >
+                  class="editlink"  :to="{ name: 'Edit', params: { id: product.prodID } }">
+                
                   Edit
                 </router-link></button>
               </div>
@@ -53,7 +52,7 @@
     </div>
   </div>
   <div class="users">
-    <h1 class="hh1">Users</h1>
+    <h1 class="hh1 px-5 mx-4">Users</h1>
     <table class="user-table">
    
       <thead>
@@ -129,8 +128,8 @@ export default {
     this.$store.dispatch("fetchUsers");
   },
   methods: {
-    deleteProduct(ProdID) {
-      this.$store.dispatch("ProdDeleted", ProdID);
+    deleteProduct(prodID) {
+      this.$store.dispatch("ProdDeleted", prodID);
     },
 
     deleteUser(userID) {

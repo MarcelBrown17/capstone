@@ -135,6 +135,7 @@ export default createStore({
             timer: 4000,
           });
           context.dispatch("fetchUsers");
+          cookies.set("MannUser", { token, msg, result });
           router.push({ name: "login" });
         } else {
           router.push("/login");

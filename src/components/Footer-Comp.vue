@@ -1,6 +1,6 @@
 <template>
     <!-- Footer -->
-<footer class="text-center text-lg-start text-light bg-black">
+<footer class="text-center text-lg-start text-light bg-black w-100">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <!-- Left -->
@@ -11,19 +11,16 @@
 
     <!-- Right -->
     <div>
-      <a href="" class="me-4 text-reset">
+      <a href="https://www.facebook.com/profile.php?id=100091889492469&mibextid=ZbWKwL" class="me-4 text-reset" target="_blank">
         <i class="fab fa-facebook-f"></i>
       </a>
-      <a href="" class="me-4 text-reset">
+      <a href="https://twitter.com/Cellovfx?t=1D6_QmZ-1rKySr7FDu6WPw&s=31" class="me-4 text-reset" target="_blank">
         <i class="fab fa-twitter"></i>
       </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
+      <a href="https://instagram.com/cellovfx?igshid=ZGUzMzM3NWJiOQ==" class="me-4 text-reset" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
-      <a href="" class="me-4 text-reset">
+      <a href="https://github.com/MarcelBrown17" class="me-4 text-reset" target="_blank">
         <i class="fab fa-github"></i>
       </a>
     </div>

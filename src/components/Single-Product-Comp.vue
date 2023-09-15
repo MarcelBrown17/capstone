@@ -100,7 +100,7 @@
           </div>
           <div class="card-footer">
             <router-link to="/products" class="btn">Back</router-link>
-            <button class="btn" type="button" @click="addToCart()">
+            <button class="btn" id="add" type="button" @click="addToCart()">
               Add To Cart
             </button>
           </div>
@@ -192,7 +192,7 @@ export default {
   margin-bottom: 4rem;
 }
 
-.details-container {
+#product-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -246,7 +246,67 @@ export default {
   color: #000000;
 }
 
-#cart-btn {
+#add{
   margin-left: 1rem !important;
 }
+
+@media only screen and (max-width: 300px) {
+  *{padding: 0;
+  margin: 0;
+}
+  .carousel-item {
+  height: 100% !important;
+  width: 80% !important;
+  justify-content: center !important;
+  align-items: center;
+}
+  .carousel {
+    margin: auto;
+    height: 100% !important;
+  width: 80% !important;
+  justify-content: center !important;
+  align-items: center;
+  margin-bottom: 5rem !important;
+}
+  .container {
+  justify-content: center !important;
+  align-items: center;
+}
+  .carousel-inner {
+    margin: auto !important;
+    justify-content: center !important;
+  margin-bottom: 5rem !important;
+  height: 100% !important;
+  width: 90% !important;
+  margin-left: 2.2rem !important;
+}
+#product-details{
+  padding: 0px !important;
+  margin: auto !important;
+}
+img{
+  justify-content: center !important;
+  margin: auto !important;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+margin: auto !important;
+  width: 80% !important;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+margin: auto !important;
+
+}
+#add{
+  margin-top: 0.5rem !important;
+  margin: 0.5rem !important;
+}
+.carousel-indicators{
+margin-bottom: 3rem !important;
+}
+}
+
 </style>

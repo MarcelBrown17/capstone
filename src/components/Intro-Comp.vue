@@ -3,17 +3,23 @@
     <div class="black-background">
       <h1 class="heading">Welcome to Envy Essentials</h1>
       <div class="text">
-        <h3 class="font">sdfgbgfdf</h3>
-        <h3 class="font">sdfgbgfdf</h3>
-        <h3 class="font">sdfgbgfdf</h3>
-        <h3 class="font">sdfgbgfdf</h3>
+        <h3 class="font">Suits</h3>
+        <h3 class="font">Dress</h3>
+        <h3 class="font">Shirts</h3>
+        <h3 class="font">Accessories</h3>
       </div>
-      <div class="slogan">
-        Elevate Your Everyday Elegance
-      </div>
+      <div class="slogan">Elevate Your Everyday Elegance</div>
       <div class="buttons">
-        <router-link to="/login"><button class="loginBtn py-3 px-4 rounded-5">Login</button></router-link>
-        <router-link to="/register"><button class="signupBtn py-3 px-4 rounded-5">Sign Up</button></router-link>
+        <router-link to="/login"
+          ><button class="loginBtn py-3 px-4 rounded-5">
+            Login
+          </button></router-link
+        >
+        <router-link to="/register"
+          ><button class="signupBtn py-3 px-4 rounded-5">
+            Sign Up
+          </button></router-link
+        >
       </div>
     </div>
     <div class="image-container">
@@ -56,7 +62,6 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-
 }
 
 .heading {
@@ -70,13 +75,13 @@ export default {
   font-weight: lighter;
 }
 
-.loginBtn{
+.loginBtn {
   background-color: transparent;
   color: white;
   border: 1px solid white;
 }
 .signupBtn {
-  margin-left: 5px;
+  margin-left: 10px;
   background-color: transparent;
   color: white;
   border: 1px solid white;
@@ -87,10 +92,39 @@ button {
   font-size: 15px;
   font-weight: bold;
 }
+button:hover {
+  background-color: antiquewhite;
+  color: black;
+}
 
-.slogan{
+.slogan {
   font-size: 40px;
   margin-top: 1.5rem;
 }
 
+@media only screen and (max-width: 300px) {
+  .page-container {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .slogan {
+    font-size: 20px !important;
+  }
+  .heading {
+    font-size: 20px !important;
+  }
+  .font {
+    font-size: 20px !important;
+  }
+  .black-background {
+    height: 70% !important;
+  }
+  .image-container {
+    height: 30%;
+  }
+.buttons{
+  padding-bottom: 3rem !important;
+}
+}
 </style>

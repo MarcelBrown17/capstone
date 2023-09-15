@@ -1,7 +1,7 @@
 <template>
   <NavBarComp/>
-  <div>
-    <div class="edit-Div">
+  <div class="page">
+    <div class="edit- container">
       <h1 class="h1">Edit</h1>
       <router-link to="/admin" class="head"
         ><button class="button">Back</button></router-link
@@ -64,6 +64,10 @@ export default {
 
 }
 
+.page{
+  margin-top: 2rem !important;
+}
+
 .head {
   color: #ffffff;
 }
@@ -91,6 +95,7 @@ form {
 input {
   margin-top: 2rem;
   width: 25rem;
+  border: 2 solid black;
 }
 
 body {
@@ -109,5 +114,8 @@ body {
   input {
     width: 15rem;
   }
+  .page{
+  margin-top: 5rem !important;
+}
 }
 </style>

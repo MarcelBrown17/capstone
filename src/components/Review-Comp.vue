@@ -5,7 +5,7 @@
 		<div class="mainSlider">
 			<div class="content">
 				<div class="img-area"><img alt="" src="https://images.pexels.com/photos/1317712/pexels-photo-1317712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"></div>
-				<p>I had an amazing experience at this formal wear store. The staff went above and beyond to help me find the perfect suit for an upcoming event. Their attention to detail and personalized recommendations made the shopping process enjoyable and stress-free.</p>
+				<p class="text">I had an amazing experience at this formal wear store. The staff went above and beyond to help me find the perfect suit for an upcoming event. Their attention to detail and personalized recommendations made the shopping process enjoyable and stress-free.</p>
 				<h2>Rowan November</h2>
 			</div>
 			<div class="content">
@@ -144,6 +144,19 @@ html, body {
 }
 .dots:checked:nth-of-type(5)~.mainSlider {
 	left: -400%;
+}
+
+@media only screen and (max-width: 300px) {
+.dots {
+display: none !important;
+}
+.content{
+padding: 30px !important;
+padding-bottom: 30px !important;
+}
+.wrapper {
+padding-bottom: 30px !important;
+}
 }
 
 </style>

@@ -35,7 +35,7 @@
               type="submit"
               class="btn del-btn"
               id="delete"
-              @click="deleteUser(user.userID)"
+              @click="UserDeleted(user.userID)"
             >
               Delete Account
             </button>
@@ -101,7 +101,11 @@ margin-bottom: 2rem;
   margin-right: 10px !important;
   margin-left: 10px !important;
 }
-span {
-  font-family: "Cinzel", serif;
+
+@media only screen and (max-width: 300px) {
+  .card{
+    width: 90%;
+    margin-top: 5rem !important;
+  }
 }
 </style>
